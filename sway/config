@@ -1,0 +1,249 @@
+#**--   --**#
+# Variables #
+#**--   --**#
+
+# Use Mod1 for Alt, Mod4 for "Logo" key.
+set $mod Mod1
+
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Set workspace names
+set $ws1 0:1
+set $ws2 1:2
+set $ws3 2:3
+set $ws4 3:4
+set $ws5 4:5
+set $ws6 5:6
+set $ws7 6:7
+set $ws8 7:8
+set $ws9 8:9
+set $ws10 9:10
+
+# Your preferred terminal emulator
+set $term kitty
+
+# Your preferred application launcher
+set $menu exec wofi
+
+# Script directory
+set $scriptdir /home/laio-shared/sway-scripts
+
+# Lock command
+set $lock_command swaylock
+
+#**--            --**#
+# Idle configuration #
+#**--            --**#
+
+exec "swayidle -w before-sleep $lock_command"
+
+#**--  --**#
+# Includes #
+#**--  --**#
+
+include /home/laio/.config/sway/snippets/*
+include /etc/sway/config.d/*
+
+#**--      --**#
+# Key bindings #
+#**--      --**#
+
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+	# Start ~~firefox~~ zen
+	bindsym $mod+b exec zen-browser
+
+	# Start discord
+	bindsym $mod+d exec vesktop --enable-features=UseOzonePlatform --ozone-platform=wayland
+
+	# Start thunderbird
+	bindsym $mod+t exec thunderbird
+
+    # Start neovide
+    bindsym $mod+n exec neovide
+
+    # Start nautilus
+    bindsym $mod+e exec nautilus
+
+	# Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # Start your launcher
+    bindsym $mod+space exec $menu
+
+    # Despair while sway devs ignore hidpi users
+    bindsym $mod+q exec $scriptdir/scale.sh
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    # -- older way -> bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    # -- old way ->bindsym $mod+Shift+e exec "if [[ $(dunstify -u critical -i '/usr/share/icons/Papirus-Dark/symbolic/actions/system-log-out-symbolic.svg' -A 'exit, exit sway' 'Quitter sway ?' '(Cliquer la notification pour quitter)') -eq 'exit' ]];then swaymsg exit;fi"
+    bindsym $mod+Shift+e exec "eww open powermenu"
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    #bindsym $mod+Left focus left
+    #bindsym $mod+Down focus down
+    #bindsym $mod+Up focus up
+    #bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    #bindsym $mod+Shift+Left move left
+    #bindsym $mod+Shift+Down move down
+    #bindsym $mod+Shift+Up move up
+    #bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindcode $mod+10 workspace $ws1
+    bindcode $mod+11 workspace $ws2
+    bindcode $mod+12 workspace $ws3
+    bindcode $mod+13 workspace $ws4
+    bindcode $mod+14 workspace $ws5
+    bindcode $mod+15 workspace $ws6
+    bindcode $mod+16 workspace $ws7
+    bindcode $mod+17 workspace $ws8
+    bindcode $mod+18 workspace $ws9
+    bindcode $mod+19 workspace $ws10
+    # Move focused container to workspace
+    bindcode $mod+Shift+10 move container to workspace $ws1
+    bindcode $mod+Shift+11 move container to workspace $ws2
+    bindcode $mod+Shift+12 move container to workspace $ws3
+    bindcode $mod+Shift+13 move container to workspace $ws4
+    bindcode $mod+Shift+14 move container to workspace $ws5
+    bindcode $mod+Shift+15 move container to workspace $ws6
+    bindcode $mod+Shift+16 move container to workspace $ws7
+    bindcode $mod+Shift+17 move container to workspace $ws8
+    bindcode $mod+Shift+18 move container to workspace $ws9
+    bindcode $mod+Shift+19 move container to workspace $ws10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+m splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+z layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    bindsym $mod+p sticky toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+Tab focus mode_toggle
+
+    # Move focus to the parent/child container
+    bindsym $mod+Shift+a focus parent
+    bindsym $mod+a focus child
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+    mode "resize" {
+        bindsym $left resize shrink width 10px
+        bindsym $up resize grow height 10px
+        bindsym $down resize shrink height 10px
+        bindsym $right resize grow width 10px
+
+        # Ditto, with arrow keys
+        #bindsym Left resize shrink width 10px
+        #bindsym Up resize grow height 10px
+        #bindsym Down resize shrink height 10px
+        #bindsym Right resize grow width 10px
+
+        # Return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+    }
+    bindsym $mod+r mode "resize"
+#
+# Media
+#
+    bindsym XF86AudioPlay exec "playerctl play-pause"
+    bindsym XF86AudioMute exec "$scriptdir/sound.sh m"
+    bindsym XF86AudioMicMute exec "$scriptdir/sound.sh mm"
+    bindsym XF86AudioLowerVolume exec "$scriptdir/sound.sh d"
+    bindsym XF86AudioRaiseVolume exec "$scriptdir/sound.sh u"
+    bindsym Shift+XF86AudioLowerVolume exec "$scriptdir/sound.sh bd"
+    bindsym Shift+XF86AudioRaiseVolume exec "$scriptdir/sound.sh bu"
+#
+# Change monitor brightness/contrast
+#
+    bindsym XF86MonBrightnessUp exec "$scriptdir/brightness.sh u"
+    bindsym XF86MonBrightnessDown exec "$scriptdir/brightness.sh d"
+    bindsym Shift+XF86MonBrightnessUp exec "$scriptdir/brightness.sh bu"
+    bindsym Shift+XF86MonBrightnessDown exec "$scriptdir/brightness.sh bd"
+#
+# Utilities
+#
+    # Screenshot things      
+    #bindsym $mod+Shift+s exec 'grim -g "$(slurp)" ~/Images/Screenshots/Screenshot_$(date +"%Y%m%d%H%M%S").png'
+    bindsym $mod+Shift+s exec 'XDG_CURRENT_DESKTOP=Sway flameshot gui'
+    # Lock screen shortcut
+    bindsym $mod+x exec $lock_command
+
+#**--  --**#
+# Behavior #
+#**--  --**#
+
+# Change mouse behavior
+focus_follows_mouse no
+
+# Assigning apps to specific workspaces
+assign [app_id="thunderbird"] → $ws8
+assign [class="thunderbird"] → $ws8
+assign [class="Spotify"] → $ws9
+assign [app_id="discord"] → $ws10
+assign [app_id="vesktop"] → $ws10

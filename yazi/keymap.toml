@@ -1,0 +1,39 @@
+[manager]
+prepend_keymap = [
+    # default marks
+    { on = ["g", "e"], run = "cd /etc", desc = "Goto to /etc" },
+    { on = ["g", "o"], run = "cd /opt", desc = "Goto to /opt" },
+    { on = ["g", "p"], run = "cd /proc", desc = "Goto to /proc" },
+    { on = ["g", "r"], run = "cd /", desc = "Goto to /" },
+    { on = ["g", "s"], run = "cd /sys", desc = "Goto to /sys" },
+    { on = ["g", "u"], run = "cd /usr", desc = "Goto to /usr" },
+    { on = ["g", "v"], run = "cd /var", desc = "Goto to /var" },
+
+    # vi-like history navigation
+    { on = ["<C-o>"], run = "back", desc = "Go back in time"},
+    { on = ["<C-i>"], run = "forward", desc = "Go back in the future"},
+
+    # open with neovide shortcut
+    { on = ["<C-n>"], run = "shell --orphan 'neovide \"$@\"'", desc = "Open with neovide" },
+    { on = ["<C-s>"], run = "shell --block --orphan 'sudo -E neovide \"$@\"'", desc = "Open with neovide (sudo)" },
+
+    # remap linemode to accomodate bookmark plugin
+    { on = ["<", "n"], run = "linemode none", desc = "Linemode: none" },
+    { on = ["<", "s"], run = "linemode size", desc = "Linemode: size" },
+    { on = ["<", "p"], run = "linemode permissions", desc = "Linemode: permissions" },
+    { on = ["<", "b"], run = "linemode btime", desc = "Linemode: btime" },
+    { on = ["<", "m"], run = "linemode mtime", desc = "Linemode: mtime" },
+    { on = ["<", "o"], run = "linemode owner", desc = "Linemode: owner" },
+
+    # plugins
+    { on = "l", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+    { on = "<Enter>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+    { on = "i", run = "plugin max-preview", desc = "Maximize or restore preview" },
+    { on = ["m"], run = "plugin bookmarks save", desc = "Save current position as a bookmark" },
+    { on = ["'"], run = "plugin bookmarks jump", desc = "Jump to a bookmark" },
+    { on = ["b", "d"], run = "plugin bookmarks delete", desc = "Delete a bookmark" },
+    { on = ["b", "D"], run = "plugin bookmarks delete_all", desc = "Delete all bookmarks" },
+    { on   = "@", run  = "plugin open-with-cmd block", desc = "Open with command in the terminal" },    
+    { on   = "o", run  = "plugin open-with-cmd block", desc = "Open with command in the terminal" },    
+    { on   = "O", run  = "plugin open-with-cmd", desc = "Open with command" },
+]

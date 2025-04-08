@@ -1,0 +1,134 @@
+// local variables
+$opacity: 1;
+$ws-anim-duration: 0.1s;
+$gaps: 10px;
+
+//
+// General styling
+//
+.sbar {
+    font-family: "BlexMono Nerd Font Mono";
+    font-size: 10pt;
+    color: $color-fg;
+    margin-left: $gaps;
+    margin-top: $gaps;
+    margin-right: $gaps;
+}
+
+//
+// Status bar left
+//
+.sbar-mode {
+    background: $color-fg;
+    box-shadow: inset 0 0 0.5em $color-white;
+}
+.sbar-mode-text { color: $color-bg; margin: 0 0.5em 0 0; }
+.sbar-mode-logo {
+    font-family: "Phosphor";
+    color: $color-bg;
+    margin: 0 0.5em;
+    padding: 0.2em 0 0 0;
+}
+
+.sbar-ws-box button {
+    min-width: 1.5em;
+    padding: 0.25em 0.5em;
+}
+
+// we could try to have a third class for the last focused ws in order to have better animations
+.sbar-ws-unfocused {
+    background-color: rgba($color-bg, $opacity);
+    color: $color-white;
+    border-bottom: solid 3px rgba($color-blue, 0);
+    border-top: solid 3px rgba($color-bg, 1); // to fix misalignment issues from border-bottom property
+}
+
+.sbar-ws-focused {
+    background: radial-gradient(circle, rgba($color-bg-secondary, 1) 0%, rgba($color-bg, 1) 100%);
+    // formerly background-color: rgba($color-bg-secondary, $opacity);
+    color: $color-fg;
+    animation-name: button_selected;
+    animation-duration: $ws-anim-duration;
+    border-bottom: solid 3px rgba($color-blue, 1);
+    border-top: solid 3px rgba($color-bg, 1); // to fix misalignment issues from border-bottom property
+}
+
+@keyframes button_selected {
+    from {
+        // background: radial-gradient(circle, rgba($color-bg-secondary, 1) 0%, rgba($color-bg, 1) 100%);
+        // color: $color-fg;
+        // border-top: solid 2px rgba($color-bg, 1);
+        border-bottom: solid 2px rgba($color-bg, 1);
+    }
+    to {
+        // background: radial-gradient(circle, rgba($color-bg-secondary, 1) 0%, rgba($color-bg, 1) 100%);
+        // color: $color-fg;
+        // border-top: solid 2px $color-bg;
+        border-bottom: solid 2px rgba($color-blue, 1);
+    }
+}
+
+
+//
+// Statusbar center
+//
+
+.sbar-middle {
+    transition: 0.25s;
+}
+
+.sbar-win-title {
+    background-color: rgba($color-bg, $opacity);
+    transition: 0.25s;
+    padding: 0em 1em;
+}
+
+
+//
+// Statusbar right
+//
+
+.sbar-separator {
+    color: $color-fg-secondary;
+    font-size: 1.3em;
+    padding: 0;
+    margin: 0.1em 0 0 0;
+}
+.sbar-right {
+    background-color: rgba($color-bg, $opacity);
+}
+
+// module spacing
+.sbar-cpu, .sbar-ram, .sbar-bat, .sbar-time, .sbar-date { 
+    padding: 0.5em;
+}
+
+// diagram colors
+.sbar-diagram {
+    background-color: rgba($color-bg-tertiary, $opacity);
+    padding: 50em;
+}
+.sbar-cpu-label, .sbar-ram-label, .sbar-bat-label { padding: 0 0 0 0.25em; }
+.sbar-cpu-bar, .sbar-cpu-graph { color: $color-blue; }
+.sbar-ram-bar, .sbar-ram-graph { color: $color-yellow; }
+.sbar-bat-bar, .sbar-bat-bar-charging, .sbar-bat-graph { color: $color-purple; }
+
+// graph adjustments
+/* .sbar-graph-box { 
+    background: $color-bg;
+    background: linear-gradient(180deg, rgba(29,32,33,1) 0%, rgba(29,32,33,1) 100%);
+}*/ // doesn't work :(
+
+.sbar-graph-box {
+    border: solid 1px $color-fg;
+    padding: 0.5px 0;
+}
+
+.sbar-power {
+    font-family: Phosphor;
+}
+
+// supplementary padding for head and tail elements
+.sbar-systray { padding: 0 0.5em; }
+.sbar-power { padding: 0.5em 1em 0.5em 0.5em; }
+.sbar-cpu { padding-left: 0.8em; }

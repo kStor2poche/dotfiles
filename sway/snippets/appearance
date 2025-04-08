@@ -1,0 +1,26 @@
+#**--         --**#
+# Sway appearance #
+#**--         --**#
+
+# No borders or bars title
+default_border pixel 1
+default_floating_border pixel 1
+# For the principle
+font pango:BlexMono Nerd Font Mono 11
+
+# Default cursor
+seat seat0 xcursor_theme Bibata-Original-Classic 24
+
+# Colors
+# class					border	backgr.	text	indicator	child_border
+client.focused			#222222	#111111	#ebdbb2	#ebdbb2		#ebdbb2
+client.focused_inactive	#333333	#3c3836	#ebdbb2	#3c3836		#3c3836
+client.unfocused        #111111 #111111 #ebdbb2 #665c54     #665c54
+client.urgent           #fb4934 #111111 #ebdbb2 #fb4934     #fb4934
+
+# Gaps
+# gaps inner was 10 but changed for scaling reasons
+gaps inner 10
+gaps outer 0
+
+# vim:ft=swayconfig

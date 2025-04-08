@@ -1,0 +1,365 @@
+;; TODO: have a scratchpad widget that appears only if there's a window there !
+
+(defwindow statusbar [screen]
+    :monitor 0
+    :stacking "bottom"
+    :exclusive true
+    :namespace "eww-statusbar"
+    :geometry (geometry :height "1%" 
+                        :width "100%"
+                        :anchor "top center" 
+              )
+    (bar_layout :screen screen)
+)
+
+(defwidget bar_layout [screen]
+    (centerbox
+        :class "sbar"
+        (bar_left :screen screen)
+        (bar_middle)
+        (bar_right)
+    )
+)
+
+;;                      ;;
+;; Left side of the bar ;;
+;;                      ;;
+(defwidget bar_left [screen]
+    (box :class "sbar-left"
+         :halign "start"
+         :space-evenly false
+         :hexpand true
+         :vexpand true
+         (mode)
+         (workspaces :array workspacesArray :screen screen)
+    )
+)
+
+;; resize indicator
+(deflisten swayMode :initial `{"change": "default"}`
+    `swaymsg -t subscribe '["mode"]' --monitor`)
+
+(defwidget mode []
+    (revealer :transition "slideleft"
+              :reveal {swayMode.change == "resize"}
+              :duration "350ms"
+        (box :class "sbar-mode"
+             :space-evenly false
+             :hexpand true
+             :vexpand true
+             (label :class "sbar-mode-logo"
+                    :hexpand true
+                    :vexpand true
+                    :text ""
+             )
+             (label :class "sbar-mode-text"
+                    :hexpand true
+                    :vexpand true
+                    :text "resize"
+             )
+        )
+    )
+)
+
+;; workspaces
+(deflisten workspacesArray :initial "${[1]}"
+    `/home/laio/.config/eww/scripts/workspaces.sh`)
+
+(defwidget workspaces [array screen]
+    (eventbox :onscroll "if [[ {} = 'up' ]];then swaymsg workspace next; else swaymsg workspace prev; fi"
+        (box :class "sbar-ws-box"
+             :orientation "h"
+             :space-evenly false ;; maybe find a better way to have equal space workspace buttons, scss "min-width" could be an option
+             :hexpand true
+             :vexpand true
+
+             (for entry in array
+                 (button :onclick `/home/laio/.config/eww/scripts/goto_ws.sh "${entry.name}"`
+                         :hexpand true
+                         :vexpand true
+                         :width 33
+                         :visible {screen == entry.output ? true : false}
+                         :class "${entry.focused ? 'sbar-ws-focused' : 'sbar-ws-unfocused'}"
+                         {entry.name}
+                 )
+             )
+        )
+    )
+)
+
+;;                   ;;
+;; Center of the bar ;;
+;;                   ;;
+(defwidget bar_middle []
+    (box :class "sbar-middle"
+         :space-evenly false
+         :hexpand true
+         :vexpand true
+         :halign "center"
+         (window_title)
+    )
+)
+
+(deflisten windowInfo :initial "[ nothing here ]"
+    `/home/laio/.config/eww/scripts/windows.sh`
+    ;; though sometimes it doesn't work (e.g. when cmus changes track in background, it becomes the output)
+)
+(defwidget window_title []
+    (box :class "sbar-win-title"
+         :space-evenly false
+         :hexpand true
+         :vexpand true
+         (label
+                 :hexpand true
+                 :vexpand true
+                 :limit-width 40
+                 :class "sbar-win-title-label"
+                 :text "${windowInfo}"
+                 ;;:tooltip "${windowInfo}" ;;or sthg similar, is buggy :(
+         )
+    )
+)
+
+;;                       ;;
+;; Right side of the bar ;;
+;;                       ;;
+
+(defwidget bar_right []
+    (box :class "sbar-right"
+         :space-evenly false
+         :hexpand true
+         :vexpand true
+         :halign "end"
+         (cpu)
+         (ram)
+         (battery)
+         (separator)
+         (system_tray)
+         (separator)
+         (time_date)
+         (separator)
+         (power)
+    )
+)
+
+;; separator widget
+(defwidget separator []
+    (label :class "sbar-separator"
+           :text "|"
+    )
+)
+
+;; CPU utilisation
+(defvar showCpuDetail false)
+(defwidget cpu []
+    (eventbox :onhover "eww update showCpuDetail=true"
+			  :onhoverlost "eww update showCpuDetail=false"
+        (box :class "sbar-cpu"
+             :space-evenly false
+             :hexpand true
+             :vexpand true
+            (revealer :transition "slideleft"
+                      :reveal {! showCpuDetail}
+                      :duration "350ms"
+                (box
+                    (circular-progress 
+                        :class "sbar-cpu-bar sbar-diagram"
+                        :hexpand true
+                        :vexpand true
+                        :width 28
+                        :value {EWW_CPU.avg}
+                        :start-at 25
+                        :thickness 2.5
+                    )
+                    (label :class "sbar-cpu-label"
+                           :text "cpu"
+                    )
+                )
+            )
+            (revealer :transition "slideright"
+                      :reveal showCpuDetail
+                      :duration "350ms"
+                (box :class "sbar-graph-box"
+                     :space-evenly false
+                    (graph :class "sbar-cpu-graph sbar-diagram"
+                           :width 40
+                           :value {EWW_CPU.avg}
+                           :thickness 1
+                           :time-range "20s"
+                           :max 100
+                           :dynamic false
+                           :line-style "round"
+                    )
+                    "${round(EWW_CPU.avg, 0)}%"
+                )
+            )
+        )
+    )
+)
+
+;; RAM utilisation
+(defvar showRamDetail false)
+(defwidget ram []
+    (eventbox :onhover "eww update showRamDetail=true"
+			  :onhoverlost "eww update showRamDetail=false"
+        (box :class "sbar-ram"
+             :space-evenly false
+             :hexpand true
+             :vexpand true
+            (revealer :transition "slideleft"
+                      :reveal {! showRamDetail}
+                      :duration "350ms"
+                (box
+                    (circular-progress 
+                        :class "sbar-ram-bar sbar-diagram"
+                        :hexpand true
+                        :vexpand true
+                        :width 28
+                        :value {EWW_RAM.used_mem_perc}
+                        :start-at 25
+                        :thickness 2.5
+                    )
+                    (label :class "sbar-ram-label"
+                           :text "ram"
+                    )
+                )
+            )
+            (revealer :transition "slideright"
+                      :reveal showRamDetail
+                      :duration "350ms"
+                (box :class "sbar-graph-box"
+                     :space-evenly false
+                    (graph :class "sbar-ram-graph sbar-diagram"
+                           :width 40
+                           :value {EWW_RAM.used_mem_perc}
+                           :thickness 1
+                           :time-range "20s"
+                           :max 100
+                           :dynamic false
+                           :line-style "round"
+                    )
+                    "${round(EWW_RAM.used_mem_perc, 0)}%"
+                )
+            )
+        )
+    )
+)
+
+;; Battery
+(defvar showBatDetail false)
+(defwidget battery []
+    (eventbox :onhover "eww update showBatDetail=true"
+			  :onhoverlost "eww update showBatDetail=false"
+        (box :class "sbar-bat"
+             :space-evenly false
+             :hexpand true
+             :vexpand true
+            (revealer :transition "slideleft"
+                      :reveal {! showBatDetail}
+                      :duration "350ms"
+                (box
+                    (circular-progress 
+                        :class {EWW_BATTERY.BAT1.status == "Charging" ? "sbar-bat-bar-charging sbar-diagram" : "sbar-bat-bar sbar-diagram"}
+                        :hexpand true
+                        :vexpand true
+                        :width 28
+                        :height 19
+                        :value {EWW_BATTERY.BAT1.capacity}
+                        :start-at 25
+                        :thickness 2.5
+                        (label :text {EWW_BATTERY.BAT1.status == "Charging" ? "󱐋" : ""}
+                               :halign "center"
+                               :valign "center"
+                        )
+                    )
+                    (label :class "sbar-bat-label"
+                           :text "bat"
+                    )
+                )
+            )
+            (revealer :transition "slideright"
+                      :reveal showBatDetail
+                      :duration "350ms"
+                (box :class "sbar-graph-box"
+                    (graph :class "sbar-bat-graph sbar-diagram"
+                           :width 30
+                           :value {EWW_BATTERY.BAT1.capacity}
+                           :thickness 1
+                           :time-range "10m"
+                           :max 100
+                           :dynamic false
+                           :line-style "round"
+                    )
+                    "${EWW_BATTERY.BAT1.capacity}%"
+                )
+            )
+        )
+    )
+)
+
+;; Time and date
+(defpoll hoursMinutes
+    :interval "1s"
+    :initial "???"
+    :run-while time-visible
+    "date +%H:%M"
+)
+(defvar longTime false)
+(defpoll seconds
+    :interval "1s"
+    :initial "?????"
+    :run-while longTime
+    "date +:%S"
+)
+(defpoll date
+    :interval "1s"
+    :initial "?????"
+    :run-while longTime
+    "date '+%a %d %b'"
+)
+(defvar showCal false)
+(defwidget time_date []
+    (eventbox :onhover "eww update longTime=true"
+			  :onhoverlost "eww update longTime=false"
+              :onclick "eww update showCal=$(if [[ $(eww get showCal) == false ]]; then echo -n true; else echo -n false; fi)"
+        (box :class "sbar-timedate"
+             :space-evenly false
+             :hexpand true
+             :vexpand true
+            (box :space-evenly false
+                 :hexpand false
+                (label :class "sbar-date"
+                       :text "${date}"
+                )
+                (separator)
+            )
+            (box :class "sbar-time"
+                 :space-evenly false
+                (label :text "${hoursMinutes}")
+                (revealer :transition "slideleft"
+                          :reveal longTime
+                          :duration "350ms"
+                          "${seconds}"
+                )
+            )
+        )
+    )
+)
+
+;; power
+(defwidget power []
+    (button :class "sbar-power"
+        :onclick "eww open powermenu"
+        ""
+    )
+)
+
+;; Systray
+(defwidget system_tray []
+    (systray :class "sbar-systray"
+             :icon-size 17
+             :spacing 7
+             :space-evenly true
+             :prepend-new false
+    )
+)

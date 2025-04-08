@@ -1,0 +1,14 @@
+*:not(menu):not(menuitem):not(tooltip) {
+    all: unset;
+}
+
+@import './colors.scss';
+@import './powermenu.scss';
+@import './statusbar.scss';
+
+tooltip {
+    background: $color-bg;
+    color: $color-fg;
+    font-family: "BlexMono Nerd Font Mono";
+    border-radius: 0;
+}

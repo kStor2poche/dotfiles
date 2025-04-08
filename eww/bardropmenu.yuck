@@ -1,0 +1,10 @@
+(defwindow bardropmenu
+    :monitor 0
+    :stacking "overlay"
+    :exclusive false
+    :namespace "eww-bardropmenu"
+    :geometry (geometry :width "100%"
+                        :anchor "top right" 
+              )
+    (bar_layout)
+)

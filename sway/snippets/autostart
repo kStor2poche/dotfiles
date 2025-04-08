@@ -1,0 +1,19 @@
+#**--       --**#
+# App autostart #
+#**--       --**#
+
+# For gnome polkit authentication popup
+exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+
+# For playerctl player memory (TODO: check if it works)
+exec "playerctld daemon"
+
+# Systemd daemons
+# exec_always dex -a
+
+# And self explanatory stuff
+exec libinput-gestures-setup restart
+exec "$scriptdir/bar.sh"
+# exec easyeffects --gapplication-service
+
+# vim:ft=swayconfig

@@ -1,0 +1,39 @@
+$opacity: 0.6;
+
+.pwer-main {
+    background-color: rgba($color-bg, $opacity);
+    padding: 1em;
+    //border-radius: 0.5em;
+}
+.pwer-main button { font-family: "Phosphor"; }
+.pwer-btns-box button {
+    background-color: $color-bg;
+    padding: 1em;
+    color: $color-fg;
+    border: solid 1px $color-fg;
+    transition: 200ms ease-in-out background-color, color;
+    &:hover {
+        background-color: $color-bg-tertiary;
+    }
+}
+
+.pwer-shutdown:hover { color: $color-red; }
+.pwer-reboot:hover { color: $color-orange; }
+.pwer-sleep:hover { color: $color-blue; }
+.pwer-logout:hover { color: $color-yellow; }
+.pwer-lock:hover { color: $color-purple; }
+
+.pwer-separator {
+    border-left: solid 1px $color-fg;
+    color: $color-fg;
+}
+.pwer-close-button {
+    color: $color-fg;
+    transition: 200ms ease-in-out color;
+    padding-right: 0.5em;
+    padding-left: 0.25em;
+    font-size: 1.25em;
+    &:hover {
+        color: $color-red;
+    }
+}

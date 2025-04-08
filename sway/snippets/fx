@@ -1,0 +1,32 @@
+#**--      --**#
+# SwayFX stuff #
+#**--      --**#
+
+# Minimize emulation
+scratchpad_minimize enable
+
+# Window corner raduis in px
+corner_radius 7
+
+# Window bg blur
+blur enable
+blur_xray disable
+blur_passes 3
+blur_radius 2
+
+# Inactive window dimming
+default_dim_inactive 0.2
+dim_inactive_colors.unfocused #0000005F
+dim_inactive_colors.urgent #9000005F
+
+shadows enable
+shadow_color #0000007F
+shadow_blur_radius 10
+
+# Add effects to certain layers
+layer_effects "gtk-layer-shell" blur_ignore_transparent enable; shadows disable; blur enable;
+layer_effects "eww-powermenu" blur_ignore_transparent enable; shadows enable; blur enable;
+layer_effects "notifications" corner_radius 7; blur enable; blur_ignore_transparent enable; shadows enable
+#layer_effects "wofi" shadows enable; shadow_color #0000007F; shadow_blur_radius 10; blur_ignore_transparent enable
+
+# vim:ft=config

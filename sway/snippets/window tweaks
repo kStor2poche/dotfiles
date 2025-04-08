@@ -1,0 +1,31 @@
+#**--                --**#
+# Window specific tweaks #
+#**--                --**#
+
+# Firefox picture in picture (baguette ver.)
+for_window [title="Incrustation vidéo"] sticky enable; dim_inactive 0; floating enable
+# Steam friends
+for_window [title="Liste de contacts"] floating enable
+# Figures
+for_window [class="steam_app_244210"] floating enable
+# Ryujinx dialog popups
+for_window [title="ContentDialogOverlayWindow"] floating enable
+# wine systray ??
+for_window [class="steam_app_0" title="null"] minimize enable
+
+# Below is relatively self-explanatory stuff !
+for_window [app_id="com.github.wwmm.easyeffects"] floating enable
+for_window [app_id="cpupower-gui"] floating enable
+for_window [app_id="pavucontrol"] floating enable
+for_window [class="pentablet"] floating enable
+for_window [app_id="mpv"] sticky enable
+for_window [class="Unity"] floating enable
+for_window [app_id="org.gnome.Nautilus"] floating enable
+for_window [title="Ghidra: zizi_bise"] floating enable
+for_window [app_id="minecraft-launcher"] floating enable
+# why was this so hard :sobeline:
+for_window [app_id="org.qbittorrent.qBittorrent" title="^[^(qBittorrent v.*)].*"] floating enable
+for_window [class="VirtualBox" title="^.* - Settings$"] floating enable
+for_window [app_id="qalculate-gtk"] floating enable
+
+# vim:ft=swayconfig

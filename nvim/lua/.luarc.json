@@ -1,0 +1,26 @@
+{
+    "workspace.library": [
+        "/home/laio/.config/nvim",
+        "/home/laio/.local/share/nvim/site",
+        "/home/laio/.local/share/nvim/lazy/lazy.nvim",
+        "/home/laio/.local/share/nvim/lazy/nvim-lint",
+        "/home/laio/.local/share/nvim/lazy/nvim-treesitter",
+        "/home/laio/.local/share/nvim/lazy/vimtex",
+        "/home/laio/.local/share/nvim/lazy/lightline.vim",
+        "/home/laio/.local/share/nvim/lazy/nvim-lspconfig",
+        "/home/laio/.local/share/nvim/lazy/coq.artifacts",
+        "/home/laio/.local/share/nvim/lazy/coq_nvim",
+        "/home/laio/.local/share/nvim/lazy/mason-lspconfig.nvim",
+        "/home/laio/.local/share/nvim/lazy/vim-fugitive",
+        "/home/laio/.local/share/nvim/lazy/vim-glsl",
+        "/home/laio/.local/share/nvim/lazy/mason.nvim",
+        "/home/laio/.local/share/nvim/lazy/gruvbox.nvim",
+        "/usr/share/nvim/runtime",
+        "/usr/share/nvim/runtime/pack/dist/opt/matchit",
+        "/usr/lib/nvim",
+        "/home/laio/.local/state/nvim/lazy/readme",
+        "/home/laio/.local/share/nvim/lazy/vimtex/after",
+        "/home/laio/.local/share/nvim/lazy/vim-glsl/after",
+        "${3rd}/luassert/library"
+    ]
+}

@@ -1,0 +1,56 @@
+(defwindow powermenu
+    :monitor 0
+    :stacking "overlay"
+    :namespace "eww-powermenu"
+    :geometry (geometry :anchor "bottom center" 
+                        :y "5%"
+              )
+    (powermenu_layout)
+)
+
+(defwidget powermenu_layout []
+    (box :class "pwer-main"
+         :spacing 15
+         :space-evenly false
+         :valign "center" :halign "center"
+         :show-truncated "false"
+        (_buttons :shutdown "shutdown now" 
+                  :reboot "reboot"
+                  :logout "loginctl kill-session self"
+                  :sleep "playerctl -a pause; eww close powermenu; systemctl suspend"
+                  :lock "eww close powermenu; swaylock -f -e --screenshots --indicator --clock --timestr '%H:%M' --datestr '' --font 'BlexMono Nerd Font Mono' --font-size 30 --effect-blur 7x5 --effect-vignette 0.3:0.9 --fade-in 0.2 --indicator-radius 140 --indicator-thickness 7 --{inside,inside-clear,inside-wrong,inside-ver,inside-caps-lock,line,line-clear,line-caps-lock,line-ver,line-wrong,separator}-color=ffffff00 --{ring,ring-clear,ring-caps-lock}-color=07080870 --ring-ver-color=84b5e070 --ring-wrong-color=fb493470 --{caps-lock-key,key}-hl-color=84ef89 --{caps-lock-bs-hl,bs-hl}-color=fabd2f --{text,text-clear,text-caps-lock,text-ver,text-wrong}-color=ebdbb2 &"
+                  :shutdown_icon "" :reboot_icon "" :logout_icon ""
+                  :sleep_icon "" :lock_icon ""
+        )
+        (label :class "pwer-separator" :text "")
+        (button :class "pwer-close-button" :onclick "eww close powermenu" 
+            (label :show-truncated "false" :text "")
+        )
+    )
+)
+
+
+(defwidget _buttons [shutdown shutdown_icon reboot
+                     reboot_icon sleep sleep_icon 
+                     logout logout_icon lock lock_icon]
+    (box :class "pwer-btns-box" :spacing 5
+         :vexpand true :hexpand true
+         :valign "center" :halign "center"
+         :space-evenly false
+        (button :class "pwer-shutdown" :onclick shutdown 
+            (label :show-truncated false :text shutdown_icon)
+        )
+        (button :class "pwer-reboot" :onclick reboot 
+            (label :show-truncated false :text reboot_icon)
+        )
+        (button :class "pwer-sleep" :onclick sleep 
+            (label :show-truncated false :text sleep_icon)
+        )
+        (button :class "pwer-logout" :onclick logout 
+            (label :show-truncated false :text logout_icon)
+        )
+        (button :class "pwer-lock" :onclick lock 
+            (label :show-truncated false :text lock_icon)
+        )
+    )
+)

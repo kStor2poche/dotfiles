@@ -1,0 +1,7 @@
+;; declare variables ??
+
+;; powermenu
+(include './powermenu.yuck')
+
+;; statusbar
+(include './statusbar.yuck')

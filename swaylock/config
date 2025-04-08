@@ -1,0 +1,46 @@
+# general options
+daemonize
+ignore-empty-password
+screenshots
+indicator
+clock
+timestr=%H:%M
+datestr=
+font=BlexMono Nerd Font Mono
+font-size=60
+effect-blur=7x5
+effect-vignette=0.3:0.9
+fade-in=0.2
+indicator-radius=130
+indicator-thickness=7
+
+# colors
+text-color=ebdbb2
+text-clear-color=ebdbb2
+text-caps-lock-color=ebdbb2
+text-ver-color=ebdbb2
+text-wrong-color=ebdbb2
+
+inside-color=ffffff00
+inside-clear-color=ffffff00
+inside-wrong-color=ffffff00
+inside-ver-color=ffffff00
+inside-caps-lock-color=ffffff00
+line-color=ffffff00
+line-clear-color=ffffff00
+line-caps-lock-color=ffffff00
+line-ver-color=ffffff00
+line-wrong-color=ffffff00
+separator-color=ffffff00
+
+ring-color=07080870
+ring-clear-color=07080870
+ring-caps-lock-color=07080870
+ring-ver-color=84b5e070
+ring-wrong-color=fb493470
+
+caps-lock-key-hl-color=84ef89
+key-hl-color=84ef89
+
+caps-lock-bs-hl-color=fabd2f
+bs-hl-color=fabd2f

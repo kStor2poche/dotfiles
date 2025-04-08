@@ -1,0 +1,21 @@
+[whitelist mode]
+*
+!.gitignore
+
+[whitelisted folders]
+!dunst/
+!dunst/*
+!eww/
+!eww/*
+!kitty/
+!kitty/*
+!nvim/
+!nvim/*
+!sway/
+!sway/*
+!swaylock/
+!swaylock/*
+!yazi/
+!yazi/*
+!zathura/
+!zathura/*

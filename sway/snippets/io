@@ -1,0 +1,48 @@
+#**--             --**#
+# Input configuration #
+#**--             --**#
+input * {
+    xkb_layout 'be'
+    xkb_numlock enable
+}
+
+input type:touchpad {
+    dwt disabled
+    tap enabled
+    drag enabled
+    middle_emulation enabled
+    natural_scroll enabled
+    accel_profile "adaptive"
+    pointer_accel 0.1
+}
+
+input "1267:41:Elan_TrackPoint" {
+    dwtp enabled
+    accel_profile "adaptive"
+    pointer_accel -0.4
+}
+
+# External mouse tweaks
+input type:pointer {
+    accel_profile "flat"
+    pointer_accel -0.7
+}
+
+#**--              --**#
+# Output configuration #
+#**--              --**#
+
+# Wallpaper & general settings
+output * {
+    bg /home/laio/Images/some cats/eepy.jpg fill
+    adaptive_sync on
+    max_render_time off
+}
+
+# Single screen config (have to be separate because of x11 & wine)
+    output eDP-1 pos 0 0 res 2560x1600@165.040Hz scale 1.5 adaptive_sync on
+# Dual screen config
+    #output eDP-1 pos 1680 200 res 1920x1080@60.001Hz
+    #output 'Fujitsu Siemens Computers GmbH P22W-5 YV1E011439' pos 0 0
+
+# vim:ft=swayconfig
