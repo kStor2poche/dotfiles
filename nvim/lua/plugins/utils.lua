@@ -106,8 +106,8 @@ return {
     },
     -- Ft-specific utils
     {
-        --"toppair/peek.nvim",
-        dir = "/home/laio/Documents/Software/Contribs/peek.nvim",
+        -- "toppair/peek.nvim",
+        "kstor2poche/peek.nvim",
         event = { "VeryLazy" },
         build = "deno task --quiet build:fast",
         opts = {
