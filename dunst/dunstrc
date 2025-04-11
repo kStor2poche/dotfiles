@@ -404,6 +404,15 @@
     icon_position = "left"
     format = "<b>%s</b>\n%b"
 
+## Would be possible if dunst got gud
+# [spotify]
+#     appname = "spotify"
+#     origin = top-right
+#
+# [cmus]
+#     appname = "cmus"
+#     origin = top-right
+
 # Disable the transient hint so that idle_threshold cannot be bypassed from the
 # client
 #[transient_disable]

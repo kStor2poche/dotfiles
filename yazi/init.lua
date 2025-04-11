@@ -17,6 +17,11 @@ require("bookmarks"):setup({
 require("smart-enter"):setup {
 	open_multi = true,
 }
+require("relative-motions"):setup {
+	show_numbers="relative_absolute",
+	show_motion = true,
+	enter_mode ="first"
+}
 
 Status:children_add(function()
 	local h = cx.active.current.hovered

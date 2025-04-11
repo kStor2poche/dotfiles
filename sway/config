@@ -73,6 +73,9 @@ include /etc/sway/config.d/*
     # Start nautilus
     bindsym $mod+e exec nautilus
 
+    # Start yazi
+    bindsym $mod+y exec "env START_YAZI='true' kitty"
+
 	# Kill focused window
     bindsym $mod+Shift+q kill
 

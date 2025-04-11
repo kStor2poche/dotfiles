@@ -23,6 +23,11 @@ use = "yazi-rs/plugins:toggle-pane"
 rev = "a1738e8"
 hash = "5c9dda1a587b8f5b6f63e3d5375bda88"
 
+[[plugin.deps]]
+use = "dedukun/relative-motions"
+rev = "61ae795"
+hash = "65d576a76597aac2a428dc7ec0eda2ce"
+
 [[flavor.deps]]
 use = "bennyyip/gruvbox-dark"
 rev = "b4cc9f2"
