@@ -76,7 +76,9 @@
          :halign "end"
          (cpu)
          (ram)
-         ;;(battery)
+         {{- if eq .chezmoi.hostname "archlaptop" }}
+         (battery)
+         {{- end }}
          (separator)
          (system_tray)
          (separator)
@@ -291,14 +293,18 @@
 )
 
 ;; power
-;; (deflisten fan-curve
-;;     :interval "1s"
-;;     "/usr/local/bin/thermal-stat -r"
-;; )
+{{- if eq .chezmoi.hostname "archlaptop" }}
+(deflisten fan-curve
+    :interval "1s"
+    "/usr/local/bin/thermal-stat -r"
+)
+{{- end }}
 (defwidget power []
     (button :class "sbar-power"
         :onclick "eww open powermenu"
-        ;; :tooltip "${fan-curve}"
+        {{- if eq .chezmoi.hostname "archlaptop" }}
+        :tooltip "${fan-curve}"
+        {{- end }}
         ""
     )
 )
