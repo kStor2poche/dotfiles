@@ -1,0 +1,41 @@
+(defwidget bar_left [screen]
+    (box
+        :class "sbar-left"
+        :halign "start"
+        :space-evenly false
+        :hexpand true
+        :vexpand true
+        (workspaces :array workspacesArray :screen screen)
+    )
+)
+
+;; workspaces
+(deflisten workspacesArray
+    :initial {[{"output": "null", "is_focused": true, "idx": "1"}]}
+    "/home/laio/.config/eww/scripts/niri_workspaces.sh"
+)
+
+(defwidget workspaces [array screen]
+    (eventbox
+        :onscroll "if [[ {} = 'up' ]];then niri msg action focus-workspace-up; else niri msg action focus-workspace-down; fi"
+        (box
+            :class "sbar-ws-box"
+            :orientation "h"
+            :space-evenly false ;; maybe find a better way to have equal space workspace buttons, scss "min-width" could be an option
+            :hexpand true
+            :vexpand true
+
+            (for entry in array
+                (button
+                    :onclick `/home/laio/.config/eww/scripts/goto_niri_ws.sh "${entry.idx}"`
+                    :hexpand true
+                    :vexpand true
+                    :width 33
+                    :visible {screen == entry.output ? true : false}
+                    :class "${entry.is_focused ? 'sbar-ws-focused' : 'sbar-ws-unfocused'} ${entry.active_window_id == "null" ? "" :"sbar-ws-nonempty"}"
+                    {entry.active_window_id == "null" ? "+" :"●"}
+                )
+            )
+        )
+    )
+)

@@ -1,0 +1,44 @@
+#!/bin/bash
+case $1 in
+    一)
+    true_ws="0:一";;
+    二)
+    true_ws="1:二";;
+    三)
+    true_ws="2:三";;
+    四)
+    true_ws="3:四";;
+    五)
+    true_ws="4:五";;
+    六)
+    true_ws="5:六";;
+    七)
+    true_ws="6:七";;
+    八)
+    true_ws="7:八";;
+    九)
+    true_ws="8:九";;
+    十)
+    true_ws="9:十";;
+    1)
+    true_ws="0:1";;
+    2)
+    true_ws="1:2";;
+    3)
+    true_ws="2:3";;
+    4)
+    true_ws="3:4";;
+    5)
+    true_ws="4:5";;
+    6)
+    true_ws="5:6";;
+    7)
+    true_ws="6:7";;
+    8)
+    true_ws="7:8";;
+    9)
+    true_ws="8:9";;
+    10)
+    true_ws="9:10";;
+esac
+swaymsg workspace "$true_ws"

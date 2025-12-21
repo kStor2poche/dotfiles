@@ -1,0 +1,59 @@
+-- Editor options --
+vim.opt.signcolumn = "yes" -- default was "auto"
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.relativenumber = true
+vim.opt.nu = true           -- display current line number on the current line
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.mouse = "a"
+vim.opt.mousemoveevent = true
+vim.opt.ignorecase = true   -- needed for smartcase to work properly
+vim.opt.smartcase = true
+vim.opt.splitright = true   -- simply makes more sense
+vim.opt.splitbelow = true   -- this one too
+vim.opt.undofile = true
+vim.opt.undodir = "/home/laio/.local/share/nvim/undofiles"
+vim.opt.laststatus = 3      -- one statusbar for multi window view
+vim.opt.scrolloff = 5       -- 5 lines spacing to bottom/top when scrolling
+vim.opt.timeout = false
+-- vim.opt.ttimeout = false -- not sure about this one
+vim.opt.termguicolors = true
+vim.opt.shellcmdflag = "-ic"
+vim.opt.shada = "!,'1000,f1,<50,s10,h" -- see :h 'shada'
+-- no zip plugin
+vim.g.loaded_zipPlugin = false
+vim.g.loaded_zip = false
+
+-- GUI thingies (maybe make it its own file ?)
+if vim.g.neovide then
+    vim.opt.smoothscroll = true
+    -- vim.o.guifont = "SpaceMono Nerd Font Mono,Noto Color Emoji:h11:#e-subpixelantialias:#h-slight"
+    -- floating shadow/blur seems to have some trouble    
+    vim.g.neovide_floating_blur = true
+    vim.g.neovide_floating_blur_amount_x = 2.0
+    vim.g.neovide_floating_blur_amount_y = 2.0
+    vim.g.neovide_floating_shadow = true
+    vim.g.neovide_floating_z_height = 5
+    vim.g.neovide_light_angle_degrees = 45
+    vim.g.neovide_light_radius = 5
+    vim.g.neovide_refresh_rate = 180
+    vim.g.neovide_refresh_rate_idle = 5
+    vim.g.neovide_cursor_vfx_mode = "wireframe"
+    local opacity = 0.8
+    -- vim.g.neovide_opacity = opacity
+    vim.g.neovide_normal_opacity = opacity
+end
+
+-- Leader setting
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
+-- Madules !
+require("config.styling").setup()
+require("config.lazy").setup()
+require("config.keybinds").setup()
+require("config.lsp").setup()
+require("config.ft-specific").setup()

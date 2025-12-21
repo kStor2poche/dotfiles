@@ -1,0 +1,79 @@
+* {
+    font-family: "IBM Plex Sans Condensed", Serif;
+    font-size: 11pt;
+}
+
+#window {
+    margin: 0px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0);
+}
+
+#outer-box {
+    margin: 0px;
+    padding: 5px;
+    background-color: rgba(255,255,255,0);
+    color: rgba(0,0,0,0);
+}
+
+#input {
+    margin: 0 0 8px 0;
+    border: 2px solid rgb(177, 98, 134);
+    color: rgb(235, 219, 178);
+    background-color: rgba(29, 32, 33, 0.8);
+    box-shadow: 0 0 3px rgba(177, 98, 134, 0) inset;
+                /* 0 0 3px rgba(0, 0, 0, 0.7); */
+    transition: box-shadow ease-out 0.2s;
+}
+#input * {
+    color: rgb(235, 219, 178);
+}
+
+/* seems to do basically nothing
+#input:selected {
+    border: 2px solid rgb(177, 98, 134);
+}
+*/
+
+#input:focus {
+    box-shadow: 0 0 4px rgba(177, 98, 134, 1) inset;
+                /* 0 0 3px rgba(0, 0, 0, 0.7); */
+}
+
+#img {
+    padding: 5px;
+}
+
+#scroll {
+    margin: 0;
+    padding-top: 0;
+    border-radius: 5px;
+    background-color: rgba(29, 32, 33, 0.8);
+    /* box-shadow: 0 0 3px rgba(0, 0, 0, 0.7); */
+}
+
+/*that's the stuff that grows too big :(*/
+box.vertical {
+    max-width: 100%;
+}
+
+#inner-box {
+    margin: 5px;
+    background-color: rgba(0,0,0,0);
+}
+
+#text {
+    margin: 5px;
+    color: #928374;
+    background-color: rgba(0,0,0,0);
+}
+#entry:selected {
+    color: #ebdbb2;
+    background-color: rgba(7,6,6,1.);
+    border: 0px solid;
+    border-radius: 5px;
+}
+#text:selected {
+    color: #ebdbb2;
+    background-color: rgba(0,0,0,0);
+}

@@ -1,0 +1,273 @@
+local m = {}
+
+--
+-- Build LSP list
+--
+local h = require("helpers")
+-- all config "presets" flavors
+local default_config = {
+    "arduino_language_server",
+    "asm_lsp",
+    "basedpyright",
+    "bashls",
+    "cssls",
+    "denols",
+    "dockerls",
+    "docker_compose_language_service",
+    "fish_lsp",
+    "glsl_analyzer",
+    "hls",
+    "intelephense",
+    "java_language_server",
+    "rust_analyzer",
+    "spectral",
+    "tinymist"
+}
+local root_dir_config = {}
+local other_config = { "clangd", "ltex", "lua_ls" }
+local globally_installed = { "hls" }
+
+local lsp_list = h.tbl_cat(h.tbl_cat(default_config, root_dir_config), other_config)
+m.mason_managed = h.tbl_remove_vals(lsp_list, globally_installed)
+
+--
+-- LSPs setup !!
+--
+m.on_attach = function(_, bufnr) -- _ could be client
+    -- vim.lsp.inlay_hint.enable(true, {bufnr = bufnr}) -- function hints and such
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, h.tbl_append(bufopts, "desc", "Lsp - Go to definition"))
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, h.tbl_append(bufopts, "desc", "Lsp - Go to declaration"))
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, h.tbl_append(bufopts, "desc", "Lsp - Hover"))
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, h.tbl_append(bufopts, "desc", "Lsp - Go to implementation"))
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, h.tbl_append(bufopts, "desc", "Lsp - Signature help"))
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder,
+        h.tbl_append(bufopts, "desc", "Lsp - Add ws folder"))
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder,
+        h.tbl_append(bufopts, "desc", "Lsp - Rm ws folder"))
+    vim.keymap.set('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+        h.tbl_append(bufopts, "desc", "Lsp - ls ws folders"))
+    vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition,
+        h.tbl_append(bufopts, "desc", "Lsp - Go to type definition"))
+    vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, h.tbl_append(bufopts, "desc", "Lsp - Rename symbol"))
+    -- Apply action when "fix available" from lsp
+    vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, h.tbl_append(bufopts, "desc", "Lsp - Code actions"))
+    -- Happens because gr is unavailable because of default keybinds :) - TODO: see if they can be unmapped
+    vim.keymap.set('n', 'grr', require("telescope.builtin").lsp_references,
+        h.tbl_append(bufopts, "desc", "Lsp - Show references"))
+    vim.keymap.set('n', '<leader>F', function() vim.lsp.buf.format { async = true } end,
+        h.tbl_append(bufopts, "desc", "Lsp - Format buffer"))
+    -- Cycle through code diagnostics
+    vim.keymap.set('n', '<leader>o', '<cmd>lua vim.diagnostic.open_float()<CR>',
+        h.tbl_append(bufopts, "desc", "Lsp - Show diagnostics"))
+    vim.keymap.set('n', '<leader>[', function() vim.diagnostic.jump({count=-1, float=true}) end,
+        h.tbl_append(bufopts, "desc", "Lsp - Go to prev diag"))
+    vim.keymap.set('n', '<leader>]', function() vim.diagnostic.jump({count=1, float=true}) end,
+        h.tbl_append(bufopts, "desc", "Lsp - Go to next diag"))
+
+    -- Snacks/Words
+    -- vim.keymap.set("n", "<leader>*", Snacks.words.jump, { desc = "Lsp - Next reference" })
+end
+m.setup = function()
+    -- setup capabilities and on_attach according to what nvim_cmp can do
+    -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local nvim_capabilities = vim.lsp.protocol.make_client_capabilities()
+    local capabilities = require('blink.cmp').get_lsp_capabilities(nvim_capabilities)
+    local on_attach = m.on_attach
+
+    --
+    -- Sugar
+    --
+    local _border = "none"
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({ border = _border })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.signature_help({ border = _border })
+    vim.diagnostic.config {
+        float = { border = _border },
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = '',
+                [vim.diagnostic.severity.WARN] = '',
+                [vim.diagnostic.severity.INFO] = '',
+                [vim.diagnostic.severity.HINT] = '',
+            },
+        },
+        underline = true,
+    }
+
+    -- Progress (nvim-notify ver.)
+    local client_notifs = {}
+
+    local function get_notif_data(client_id, token)
+        if not client_notifs[client_id] then
+            client_notifs[client_id] = {}
+        end
+
+        if not client_notifs[client_id][token] then
+            client_notifs[client_id][token] = {}
+        end
+
+        return client_notifs[client_id][token]
+    end
+
+    local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
+
+    local function update_spinner(client_id, token)
+        local notif_data = get_notif_data(client_id, token)
+
+        if notif_data.spinner then
+            local new_spinner = (notif_data.spinner + 1) % #spinner_frames
+            notif_data.spinner = new_spinner
+
+            notif_data.notification = vim.notify(nil, nil, {
+                hide_from_history = true,
+                icon = spinner_frames[new_spinner],
+                replace = notif_data.notification,
+            })
+
+            vim.defer_fn(function()
+                update_spinner(client_id, token)
+            end, 100)
+        end
+    end
+
+    local function format_title(title, client_name)
+        return client_name .. (#title > 0 and ": " .. title or "")
+    end
+
+    local function format_message(message, percentage)
+        return (percentage and percentage .. "%\t" or "") .. (message or "")
+    end
+
+    -- actual notif
+    vim.lsp.handlers["$/progress"] = function(_, result, ctx)
+        local client_id = ctx.client_id
+        local val = result.value
+
+        if not val.kind then
+            return
+        end
+
+        -- Should try to see how to group while keeping title or how to remove everything
+        local client_name = vim.lsp.get_client_by_id(client_id).name
+        if client_name == "hls" and val.title == "Processing" then
+            return
+        end
+
+        local notif_data = get_notif_data(client_id, result.token)
+
+        if val.kind == "begin" then
+            local message = format_message(val.message, val.percentage)
+
+            notif_data.notification = vim.notify(message, "info", {
+                title = format_title(val.title, vim.lsp.get_client_by_id(client_id).name),
+                icon = spinner_frames[1],
+                timeout = false,
+                hide_from_history = true,
+            })
+
+            notif_data.spinner = 1
+            update_spinner(client_id, result.token)
+        elseif val.kind == "report" and notif_data then
+            notif_data.notification = vim.notify(format_message(val.message, val.percentage), "info", {
+                replace = notif_data.notification,
+                hide_from_history = true,
+            })
+        elseif val.kind == "end" and notif_data then
+            notif_data.notification =
+                vim.notify(val.message and format_message(val.message) or "Complete", "info", {
+                    icon = "",
+                    replace = notif_data.notification,
+                    timeout = 500,
+                })
+
+            notif_data.spinner = nil
+        end
+    end
+
+    -- lsp messages
+    -- table from lsp severity to vim severity.
+    local severity = {
+        "error",
+        "warn",
+        "info",
+        "info", -- map both hint and info to info?
+    }
+    vim.lsp.handlers["window/showMessage"] = function(_, method, params, _)
+        vim.notify(method.message, severity[params.type])
+    end
+
+    --
+    -- activate LSPs...
+    --
+
+    -- ... with a default configuration ...
+    for _, lsp in ipairs(default_config) do
+        vim.lsp.config(lsp, { capabilities = capabilities, on_attach = on_attach })
+        vim.lsp.enable(lsp)
+    end
+
+    -- ... specify the root directory for those that need it ...
+    for _, lsp in ipairs(root_dir_config) do
+        vim.lsp.config(lsp,
+            ---@diagnostic disable-next-line: undefined-field
+            { capabilities = capabilities, on_attach = on_attach, root_dir = function() return vim.uv.cwd() end })
+        vim.lsp.enable(lsp)
+    end
+
+    -- ... and provide special care for some :)
+    vim.lsp.config("clangd", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        cmd = { "clangd", "--fallback-style=UseTab: Never", "--fallback-style=IndentWidth: 4", "--fallback-style=TabWidth: 4" },
+    })
+    vim.lsp.enable("clangd")
+
+    vim.lsp.config("ltex", {
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+            on_attach(client, bufnr)
+            -- require("ltex_extra").setup({
+            --     path = vim.fn.expand("~") .. "/.local/share/ltex"
+            -- })
+        end,
+        autostart = false,
+        window_border = _border,
+        filetypes = { "latex", "tex", "bib", "markdown" },
+        settings = {
+            ltex = {
+                language = "auto",
+            },
+        },
+    })
+    vim.lsp.enable("ltex", false) -- the only way I found for it no not autostart :clown:
+
+    vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+            Lua = {
+                runtime = {
+                    -- Tell the language server which version of Lua you're using
+                    -- (most likely LuaJIT in the case of Neovim)
+                    version = 'LuaJIT',
+                },
+                diagnostics = {
+                    -- Get the language server to recognize the `vim` global
+                    globals = { 'vim', 'require' },
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false, -- to avoid having the "do you want to use the luassert environment" every time
+                },
+                -- Do not send telemetry data containing a randomized but unique identifier
+                telemetry = { enable = false, },
+            },
+        },
+    })
+    vim.lsp.enable("lua_ls")
+end
+
+return m

@@ -1,0 +1,18 @@
+[flavor]
+#dark = "gruvbox-dark"
+
+[mode]
+normal_alt.fg = "white"
+normal_alt.bg = "black"
+
+select_main.bg = "#d65d0e"
+select_alt.fg = "#d65d0e"
+select_alt.bg = "black"
+
+unset_main.bg = "#d65d0e"
+unset_alt.fg = "#d65d0e"
+unset_alt.bg = "black"
+
+[status]
+separator_open = ""
+separator_close = ""

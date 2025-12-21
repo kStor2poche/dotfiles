@@ -1,0 +1,57 @@
+(defwindow powermenu
+    :monitor 0
+    :stacking "overlay"
+    :focusable "ondemand"
+    :namespace "eww-powermenu"
+    :geometry (geometry :anchor "bottom center" 
+                        :y "5%"
+              )
+    (powermenu_layout)
+)
+
+(defwidget powermenu_layout []
+    (box :class "pwer-main"
+         :spacing 15
+         :space-evenly false
+         :valign "center" :halign "center"
+         ;:show-truncated "false"
+        (_buttons :shutdown "shutdown now" 
+                  :reboot "reboot"
+                  :logout {get_env("XDG_CURRENT_DESKTOP") == "niri" ? "niri msg action quit -s" : "loginctl kill-session self"}
+                  :sleep "playerctl -a pause; eww close powermenu; systemctl suspend"
+                  :lock "eww close powermenu; swaylock &"
+                  :shutdown_icon "" :reboot_icon "" :logout_icon ""
+                  :sleep_icon "" :lock_icon ""
+        )
+        (label :class "pwer-separator" :text "")
+        (button :class "pwer-close-button" :onclick "eww close powermenu" 
+            (label :show-truncated "false" :text "")
+        )
+    )
+)
+
+
+(defwidget _buttons [shutdown shutdown_icon reboot
+                     reboot_icon sleep sleep_icon 
+                     logout logout_icon lock lock_icon]
+    (box :class "pwer-btns-box" :spacing 5
+         :vexpand true :hexpand true
+         :valign "center" :halign "center"
+         :space-evenly false
+        (button :class "pwer-shutdown" :onclick shutdown 
+            (label :show-truncated false :text shutdown_icon)
+        )
+        (button :class "pwer-reboot" :onclick reboot 
+            (label :show-truncated false :text reboot_icon)
+        )
+        (button :class "pwer-sleep" :onclick sleep 
+            (label :show-truncated false :text sleep_icon)
+        )
+        (button :class "pwer-logout" :onclick logout 
+            (label :show-truncated false :text logout_icon)
+        )
+        (button :class "pwer-lock" :onclick lock 
+            (label :show-truncated false :text lock_icon)
+        )
+    )
+)

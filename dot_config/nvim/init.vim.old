@@ -1,0 +1,66 @@
+call plug#begin(stdpath('data') . '/plugged')
+Plug 'morhetz/gruvbox'
+Plug 'neovim/nvim-lspconfig'
+Plug 'tikhomirov/vim-glsl'
+Plug 'tpope/vim-fugitive'
+Plug 'itchyny/lightline.vim'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+call plug#end()
+
+" Gruvbox theme settings
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+let g:gruvbox_italic = 1
+let g:gruvbox_transparent_bg = 1
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
+hi! Normal ctermbg=NONE
+
+" Other options
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set relativenumber
+set nu
+set nohlsearch
+set incsearch
+set mouse=
+set smartcase
+set splitright
+" set signcolumn could be used by some cool plugins
+set undofile
+set undodir=/home/laio/.local/share/nvim/undofiles
+" one statusbar to rule them all
+set laststatus=3
+
+" insert is in statusbar thx to lightline
+set noshowmode
+" configure lightline
+let g:lightline = {
+      \ 'colorscheme': 'gruvbox',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified' ],
+      \             [ 'gitbranch' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ]
+      \ },
+      \ 'component': {
+      \   'charvaluehex': '0x%B -> %b'
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+" start command completion
+let g:coq_settings = { 'auto_start': 'shut-up' }
+
+" Binds
+let mapleader = " "
+map <leader>c :set smartcase!<CR>:set smartcase?<CR>
+map <leader>h :set hlsearch!<CR>:set hlsearch?<CR>
+map <leader>o o<Esc>
+map <leader>O O<Esc>
+" noremap <C-A> <esc> , at least we tried

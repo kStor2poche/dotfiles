@@ -1,0 +1,73 @@
+(defwidget bar_left [screen]
+    (box
+        :class "sbar-left"
+        :halign "start"
+        :space-evenly false
+        :hexpand true
+        :vexpand true
+        (mode)
+        (workspaces :array workspacesArray :screen screen)
+    )
+)
+
+;; resize indicator
+(deflisten swayMode
+    :initial `{"change": "default"}`
+    `swaymsg -t subscribe '["mode"]' --monitor`
+)
+
+(defwidget mode []
+    (revealer
+        :transition "slideleft"
+        :reveal {swayMode.change == "resize"}
+        :duration "350ms"
+        (box
+            :class "sbar-mode"
+            :space-evenly false
+            :hexpand true
+            :vexpand true
+            (label
+                :class "sbar-mode-logo"
+                :hexpand true
+                :vexpand true
+                :text ""
+            )
+            (label
+                :class "sbar-mode-text"
+                :hexpand true
+                :vexpand true
+                :text "resize"
+            )
+        )
+    )
+)
+
+;; workspaces
+(deflisten workspacesArray
+    :initial {[{"output": "null", "focused": true, "name": "1"}]}
+    "/home/laio/.config/eww/scripts/workspaces.sh"
+)
+
+(defwidget workspaces [array screen]
+    (eventbox :onscroll "if [[ {} = 'up' ]];then swaymsg workspace prev; else swaymsg workspace next; fi"
+        (box
+            :class "sbar-ws-box"
+            :orientation "h"
+            :space-evenly false ;; maybe find a better way to have equal space workspace buttons, scss "min-width" could be an option
+            :hexpand true
+            :vexpand true
+
+            (for entry in array
+                (button
+                    :onclick `/home/laio/.config/eww/scripts/goto_ws.sh "${entry.name}"`
+                    :hexpand true
+                    :vexpand true
+                    :width 33
+                    :visible {screen == entry.output ? true : false}
+                    :class "${entry.focused ? 'sbar-ws-focused' : 'sbar-ws-unfocused'}"
+                    {entry.name}
+                )
+            )
+        )
+    )
+)

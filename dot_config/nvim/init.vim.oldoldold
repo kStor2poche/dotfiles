@@ -1,0 +1,11 @@
+set tabstop=4 softtabstop=4
+set relativenumber
+set nu
+set nohlsearch
+set incsearch
+set mouse=
+" set termguicolors
+
+"call plug#begin(stdpath('data') . '/plugged')
+"Plug 'morhetz/gruvbox'
+"call plug#end()

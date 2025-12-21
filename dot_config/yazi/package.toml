@@ -1,0 +1,34 @@
+[[plugin.deps]]
+use = "dedukun/bookmarks"
+rev = "9ef1254"
+hash = "92fbb5483657fa7976cdf4e0104e18e0"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "d1c8baa"
+hash = "56fdabc96fc1f4d53c96eb884b02a5be"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "d1c8baa"
+hash = "3996fc74044bc44144b323686f887e1"
+
+[[plugin.deps]]
+use = "Ape/open-with-cmd"
+rev = "433cf30"
+hash = "86e0312b01bc5762813c6c1d0517f073"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "d1c8baa"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
+
+[[plugin.deps]]
+use = "dedukun/relative-motions"
+rev = "a603d9e"
+hash = "e02a788e5b8ae0fb47fd0193dda589cc"
+
+[[flavor.deps]]
+use = "bennyyip/gruvbox-dark"
+rev = "e5e1aef"
+hash = "eb88137cf13a796225254344bf6def2c"

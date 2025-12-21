@@ -1,0 +1,8 @@
+tabs = false
+
+[font]
+normal = ["SpaceMono Nerd Font Mono","Noto Color Emoji"]
+size = 11
+features = {"SpaceMono Nerd Font Mono"= ["-calt"]}
+edging = "antialias" #"subpixelantialias"
+hinding = "slight"

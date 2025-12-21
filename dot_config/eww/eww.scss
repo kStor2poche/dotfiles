@@ -1,0 +1,30 @@
+*:not(menu):not(menuitem):not(tooltip) {
+    all: unset;
+}
+
+@import './colors.scss';
+@import './powermenu.scss';
+@import './statusbar.scss';
+
+tooltip {
+    background: rgba($color-bg, $opacity);
+    color: $color-fg;
+    font-family: "Space Grotesk";
+    font-style: italic;
+    border: none;
+    border-radius: 3px;
+    font-size: 10pt;
+}
+
+menu {
+    background: rgba($color-bg, $opacity);
+    border-radius: 3px;
+    menuitem {
+        font-style: italic;
+        font-size: 10pt;
+        border-radius: 3px;
+        &:hover {
+            color: $color-fg;
+        }
+    }
+}

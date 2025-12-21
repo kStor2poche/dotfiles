@@ -1,0 +1,3 @@
+-- doesn't work smh :3
+-- debating whether or not to shred my head off of my body
+-- vim.treesitter.start(nil, "dba")
