@@ -15,7 +15,7 @@ vim.opt.smartcase = true
 vim.opt.splitright = true   -- simply makes more sense
 vim.opt.splitbelow = true   -- this one too
 vim.opt.undofile = true
-vim.opt.undodir = "/home/laio/.local/share/nvim/undofiles"
+vim.opt.undodir = "{{- .chezmoi.homeDir }}/.local/share/nvim/undofiles"
 vim.opt.laststatus = 3      -- one statusbar for multi window view
 vim.opt.scrolloff = 5       -- 5 lines spacing to bottom/top when scrolling
 vim.opt.timeout = false
@@ -39,7 +39,12 @@ if vim.g.neovide then
     vim.g.neovide_floating_z_height = 5
     vim.g.neovide_light_angle_degrees = 45
     vim.g.neovide_light_radius = 5
+    {{- if eq .chezmoi.hostname "archdesktop" }}
     vim.g.neovide_refresh_rate = 180
+    {{- end }}
+    {{- if eq .chezmoi.hostname "archlaptop" }}
+    vim.g.neovide_refresh_rate = 165
+    {{- end }}
     vim.g.neovide_refresh_rate_idle = 5
     vim.g.neovide_cursor_vfx_mode = "wireframe"
     local opacity = 0.8

@@ -162,6 +162,7 @@ return {
             },
         }
     },
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     -- Ft-specific utils
     {
         -- "toppair/peek.nvim",
@@ -217,4 +218,5 @@ return {
             vim.g.vimtex_view_method='zathura'
         end
     },
+    {{- end }}
 }

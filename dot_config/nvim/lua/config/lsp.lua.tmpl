@@ -6,26 +6,38 @@ local m = {}
 local h = require("helpers")
 -- all config "presets" flavors
 local default_config = {
+    "bashls",
+    "fish_lsp",
+    "spectral",
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" "archleo" }}
+    "dockerls",
+    "docker_compose_language_service",
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     "arduino_language_server",
     "asm_lsp",
     "basedpyright",
-    "bashls",
     "cssls",
     "denols",
-    "dockerls",
-    "docker_compose_language_service",
-    "fish_lsp",
     "glsl_analyzer",
     "hls",
     "intelephense",
     "java_language_server",
     "rust_analyzer",
-    "spectral",
     "tinymist"
+    {{- end }}
+    {{- end }}
 }
 local root_dir_config = {}
-local other_config = { "clangd", "ltex", "lua_ls" }
-local globally_installed = { "hls" }
+local other_config = {
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
+    "clangd", "ltex", "lua_ls"
+    {{- end }}
+}
+local globally_installed = {
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
+    "hls"
+    {{- end }}
+}
 
 local lsp_list = h.tbl_cat(h.tbl_cat(default_config, root_dir_config), other_config)
 m.mason_managed = h.tbl_remove_vals(lsp_list, globally_installed)

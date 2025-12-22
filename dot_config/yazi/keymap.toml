@@ -6,6 +6,7 @@ prepend_keymap = [
     { on = ["g", "p"], run = "cd /proc", desc = "Goto to /proc"},
     { on = ["g", "r"], run = "cd /", desc = "Goto to /"},
     { on = ["g", "s"], run = "cd /sys", desc = "Goto to /sys"},
+    { on = ["g", "t"], run = "cd /tmp", desc = "Goto to /tmp"},
     { on = ["g", "u"], run = "cd /usr", desc = "Goto to /usr"},
     { on = ["g", "v"], run = "cd /var", desc = "Goto to /var"},
 

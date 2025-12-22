@@ -14,7 +14,7 @@ return {
         opts = {
             ensure_installed = {
                 "arduino", "c", "cpp", "lua", "c_sharp", "gdscript", "hlsl", "glsl",
-                "glimmer", "haskell", "html", "java", "javascript", "json", "latex",
+                "glimmer", "gotmpl", "haskell", "html", "java", "javascript", "json", "latex",
                 "markdown", "markdown_inline", "python", "rust", "typst", "twig", "yuck",
             },
             sync_install = false,
