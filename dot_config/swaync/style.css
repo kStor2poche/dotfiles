@@ -18,7 +18,8 @@
 }
 
 * {
-  font-family: "IBM Plex Sans";
+  /* font-family: "IBM Plex Sans"; */
+  font-family: "Space Grotesk";
 }
 
 .close-button {
