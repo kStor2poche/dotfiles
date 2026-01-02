@@ -30,7 +30,7 @@ local default_config = {
 local root_dir_config = {}
 local other_config = {
     {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
-    "clangd", "ltex", "lua_ls"
+    "arduino_language_server", "clangd", "ltex", "lua_ls"
     {{- end }}
 }
 local globally_installed = {
@@ -74,9 +74,9 @@ m.on_attach = function(_, bufnr) -- _ could be client
     -- Cycle through code diagnostics
     vim.keymap.set('n', '<leader>o', '<cmd>lua vim.diagnostic.open_float()<CR>',
         h.tbl_append(bufopts, "desc", "Lsp - Show diagnostics"))
-    vim.keymap.set('n', '<leader>[', function() vim.diagnostic.jump({count=-1, float=true}) end,
+    vim.keymap.set('n', '<leader>[', function() vim.diagnostic.jump({ count = -1, float = true }) end,
         h.tbl_append(bufopts, "desc", "Lsp - Go to prev diag"))
-    vim.keymap.set('n', '<leader>]', function() vim.diagnostic.jump({count=1, float=true}) end,
+    vim.keymap.set('n', '<leader>]', function() vim.diagnostic.jump({ count = 1, float = true }) end,
         h.tbl_append(bufopts, "desc", "Lsp - Go to next diag"))
 
     -- Snacks/Words
@@ -229,6 +229,14 @@ m.setup = function()
     end
 
     -- ... and provide special care for some :)
+    local arduino_caps = capabilities
+    arduino_caps.textDocument.semanticTokens = vim.NIL
+    arduino_caps.workspace.semanticTokens = vim.NIL
+    vim.lsp.config("arduino_language_server", {
+        capabilities = arduino_caps,
+        on_attach = on_attach,
+    })
+    vim.lsp.enable("arduino_language_server")
     vim.lsp.config("clangd", {
         capabilities = capabilities,
         on_attach = on_attach,

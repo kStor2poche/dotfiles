@@ -37,7 +37,11 @@ set $scriptdir /home/laio-shared/sway-scripts
 #**--            --**#
 
 set $lock_command swaylock
-exec "swayidle -w before-sleep $lock_command"
+exec_always killall swayidle; \
+            swayidle -w before-sleep $lock_command
+                # \
+                # timeout 120 'swaymsg output "*" power off' \
+                # resume 'swaymsg output "*" power on'
 
 #**--  --**#
 # Includes #
@@ -265,6 +269,8 @@ include /etc/sway/config.d/*
 
 # Change mouse behavior
 focus_follows_mouse no
+# Hide cursor on current seat (-) after 3000ms of inactivity
+seat seat0 hide_cursor 3000
 
 # Assigning apps to specific workspaces
 assign [app_id="org.mozilla.Thunderbird"] → $ws8

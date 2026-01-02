@@ -14,5 +14,8 @@ unset_alt.fg = "#d65d0e"
 unset_alt.bg = "black"
 
 [status]
-separator_open = ""
-separator_close = ""
+sep_right = { open = "█", close = "█" }
+sep_left = { open = "█", close = "█" }
+
+[indicator]
+padding = { open = "█", close = "█" }

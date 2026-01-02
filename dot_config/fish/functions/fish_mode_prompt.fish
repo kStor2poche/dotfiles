@@ -9,35 +9,35 @@ function fish_mode_prompt --description 'Display vi prompt mode'
                 echo -n ' N'
                 set_color normal
                 set_color white
-                echo ''
+                echo '█'
             case insert
                 set_color --background brblue
                 set_color --bold black
                 echo ' I'
                 set_color normal
                 set_color brblue
-                echo ''
+                echo '█'
             case replace_one
                 set_color --background brpurple
                 set_color --bold black
                 echo ' R'
                 set_color normal
                 set_color brpurple
-                echo ''
+                echo '█'
             case replace
                 set_color --background brred
                 set_color --bold black
                 echo ' R'
                 set_color normal
                 set_color brred
-                echo ''
+                echo '█'
             case visual
                 set_color --background FE8019
                 set_color --bold black
                 echo ' V'
                 set_color normal
                 set_color FE8019
-                echo ''
+                echo '█'
         end
         set_color normal
         echo -n ' '
