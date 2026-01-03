@@ -1,0 +1,98 @@
+#**--           --**#
+#   Global config   #
+#**--           --**#
+function version_checker
+    if [ ! -e /tmp/nvcmp ];
+        nvchecker 2> /dev/null
+        script -q -O /dev/null -c nvcmp | tee /tmp/nvcmp
+    else
+        # replace loading animation (and in fact don't show it at all)
+        echo -n "                   "\r
+        cat /tmp/nvcmp
+    end
+end
+
+#**--                --**#
+#   Interactive config   #
+#**--                --**#
+if status is-interactive
+    # Don't echo input chars while loading
+    stty -echo
+
+    # No greeting
+    set fish_greeting
+
+    # Autorun nvcmp to know if I need to update my server stuff & maintained Aur packages
+    fish --command version_checker 0</dev/null &
+    set -e version_checker
+    set load_anim "⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏"
+    set i 1
+    while jobs > /dev/null
+        echo -ne \r$load_anim[$i] running nvchecker\r
+        sleep 0.1
+        set i (math  1 + \(\($i + 1\) % (count $load_anim)\))
+    end
+
+    # Aliases
+    # @fish-lsp-disable 2002
+    alias l='ll'
+    alias ip='ip --color=auto'
+    alias mkdir='mkdir -p -v'
+    alias update='paru -Syu'
+    alias sus="systemctl suspend"
+    alias shut="shutdown now"
+    alias mv='mv -i'
+    alias cp='cp -i'
+    alias sl='sl -wa2|lolcat'
+    alias gitlog='git log --oneline --graph --decorate --all'
+    alias chat1='sha1sum'
+    alias chat224='sha224sum'
+    alias chat256='sha256sum'
+    alias chat384='sha384sum'
+    alias chat512='sha512sum'
+    alias sudodiff='sudo -E neovide -d'
+    alias sudorr='sudo -E rr'
+    alias sudovide='sudo -E neovide'
+    alias wifil='nmcli device wifi list'
+    alias wific='nmcli device wifi connect'
+    alias rz='rizin'
+    alias nvclear='rm /tmp/nvcmp'
+    alias lg='lazygit'
+    # incl. parallelized compression algorithms
+    alias gzip='pigz'
+    alias bzip2='pbzip2'
+
+    # Set sh-like "!!" abbreviation
+    function last_history_item; echo $history[1]; end
+    abbr -a !! --position anywhere --function last_history_item
+
+    # Prompt colors
+    set -g fish_color_cwd brgreen
+    set -g fish_color_user -i -o brgreen
+    set -g fish_color_host -i EBDBB2 #FE8019
+    set -g fish_color_host_remote -i -o brcyan
+    set -g fish_color_status black -b red
+    set -g fish_color_status_braces red
+    # Vi custom bindings - cf. https://fishshell.com/docs/current/cmds/bind.html
+    # bind -M insert -m default j,k cancel repaint-mode 
+    # TODO: ^D on non-empty prompt
+
+    # Auto rehash on pacman install/remove/upgrade using SIGUSR1 (equivalent ??)
+
+    # Inits and such
+    opam env | source
+    zoxide init fish | source
+    eww shell-completions --shell fish | source
+
+    # Pretty colors in vt
+    if [ "$TERM" = "linux" ]
+        setvtrgb /etc/vtrgb.conf
+    end
+    # yazi autostart thing
+    if [ -n "$START_YAZI" ]
+        y
+    end
+
+    # Resume stty echo
+    stty echo
+end
