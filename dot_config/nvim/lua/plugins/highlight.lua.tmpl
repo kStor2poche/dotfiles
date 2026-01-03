@@ -1,5 +1,4 @@
 return {
-    -- "sheerun/vim-polyglot", -- needed for handlebars :3
     {
         "nvim-treesitter/nvim-treesitter",
         branch = "main", -- plz remove once it becomes the default branch upstream
@@ -13,9 +12,12 @@ return {
         ---@type ts.mod.UserConfig
         opts = {
             ensure_installed = {
-                "arduino", "c", "cpp", "lua", "c_sharp", "gdscript", "hlsl", "glsl",
-                "glimmer", "gotmpl", "haskell", "html", "java", "javascript", "json", "latex",
+                "c", "dockerfile", "json", "lua", "yaml",
+                {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
+                "arduino", "cpp", "c_sharp", "gdscript", "hlsl", "glsl",
+                "glimmer", "gotmpl", "haskell", "html", "java", "javascript", "latex",
                 "markdown", "markdown_inline", "python", "rust", "typst", "twig", "yuck",
+                {{- end }}
             },
             sync_install = false,
             auto_install = true,
