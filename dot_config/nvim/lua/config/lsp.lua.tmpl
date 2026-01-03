@@ -228,6 +228,7 @@ m.setup = function()
     end
 
     -- ... and provide special care for some :)
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     local arduino_caps = capabilities
     arduino_caps.textDocument.semanticTokens = vim.NIL
     arduino_caps.workspace.semanticTokens = vim.NIL
@@ -235,6 +236,7 @@ m.setup = function()
         capabilities = arduino_caps,
         on_attach = on_attach,
     })
+    {{- end }}
     vim.lsp.enable("arduino_language_server")
     vim.lsp.config("clangd", {
         capabilities = capabilities,
