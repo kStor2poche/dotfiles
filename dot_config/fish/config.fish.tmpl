@@ -1,6 +1,7 @@
 #**--           --**#
 #   Global config   #
 #**--           --**#
+{{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
 function version_checker
     if [ ! -e /tmp/nvcmp ];
         nvchecker 2> /dev/null
@@ -11,17 +12,24 @@ function version_checker
         cat /tmp/nvcmp
     end
 end
+{{- end }}
 
 #**--                --**#
 #   Interactive config   #
 #**--                --**#
 if status is-interactive
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     # Don't echo input chars while loading
     stty -echo
+    {{- end }}
 
     # No greeting
     set fish_greeting
 
+    # Vi bindings
+    set -g fish_key_bindings fish_vi_key_bindings
+
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     # Autorun nvcmp to know if I need to update my server stuff & maintained Aur packages
     fish --command version_checker 0</dev/null &
     set -e version_checker
@@ -32,6 +40,7 @@ if status is-interactive
         sleep 0.1
         set i (math  1 + \(\($i + 1\) % (count $load_anim)\))
     end
+    {{- end }}
 
     # Aliases
     # @fish-lsp-disable 2002
@@ -80,9 +89,11 @@ if status is-interactive
     # Auto rehash on pacman install/remove/upgrade using SIGUSR1 (equivalent ??)
 
     # Inits and such
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     opam env | source
-    zoxide init fish | source
     eww shell-completions --shell fish | source
+    {{- end }}
+    zoxide init fish | source
     chezmoi completion fish | source
 
     # Pretty colors in vt
@@ -94,6 +105,8 @@ if status is-interactive
         y
     end
 
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     # Resume stty echo
     stty echo
+    {{- end }}
 end
