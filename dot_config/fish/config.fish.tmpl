@@ -32,7 +32,6 @@ if status is-interactive
     {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     # Autorun nvcmp to know if I need to update my server stuff & maintained Aur packages
     fish --command version_checker 0</dev/null &
-    set -e version_checker
     set load_anim "⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏"
     set i 1
     while jobs > /dev/null
