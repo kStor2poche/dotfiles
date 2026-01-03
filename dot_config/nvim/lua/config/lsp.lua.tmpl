@@ -8,7 +8,6 @@ local h = require("helpers")
 local default_config = {
     "bashls",
     "fish_lsp",
-    "spectral",
     {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" "archleo" }}
     "dockerls",
     "docker_compose_language_service",
@@ -22,6 +21,7 @@ local default_config = {
     "intelephense",
     "java_language_server",
     "rust_analyzer",
+    "spectral",
     "tinymist",
     "ts_ls",
     {{- end }}

@@ -83,6 +83,7 @@ if status is-interactive
     opam env | source
     zoxide init fish | source
     eww shell-completions --shell fish | source
+    chezmoi completion fish | source
 
     # Pretty colors in vt
     if [ "$TERM" = "linux" ]
