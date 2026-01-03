@@ -76,6 +76,7 @@ return {
             keymap = {
                 preset = 'default',
                 ['<C-CR>'] = { 'accept', 'fallback' },
+                ['<C-n>'] = { 'show', 'select_next', 'fallback_to_mappings' },
                 -- ['<ESC>'] = { 'cancel', 'fallback' },
             },
 

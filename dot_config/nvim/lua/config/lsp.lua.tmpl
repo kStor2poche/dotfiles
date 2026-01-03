@@ -12,7 +12,6 @@ local default_config = {
     "dockerls",
     "docker_compose_language_service",
     {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
-    "arduino_language_server", -- TODO: Path to ArduinoCLI config file must be set.
     "asm_lsp",
     "basedpyright",
     "cssls",
