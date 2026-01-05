@@ -3,7 +3,7 @@
 
 // Input device configuration.
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
-input { // {{{
+input { // {{"{{{"}}
     // mod-key "Alt" // I modded the keyboard to have a normally-placed win key!
     keyboard {
         xkb {
@@ -43,7 +43,8 @@ input { // {{{
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
-output "DP-1" { // {{{
+{{- if eq .chezmoi.hostname "archdesktop"}}
+output "DP-1" { // {{"{{{"}}
     // off
     mode "2560x1440@179.952"
     // scale 1.25
@@ -74,11 +75,21 @@ output "HDMI-A-1" {
     position x=0 y=0
     variable-refresh-rate on-demand=true
 }
+{{- end}}
+{{- if eq .chezmoi.hostname "archlaptop"}}
+output "eDP-1" {
+    mode "2560x1600@165.040"
+    transform "normal"
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+    scale 1.5
+}
+{{- end}}
 // }}}
 
 // Settings that influence how windows are positioned and sized.
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
-layout { // {{{
+layout { // {{"{{{"}}
     // Set gaps around windows in logical pixels.
     gaps 10
 
@@ -221,7 +232,7 @@ layout { // {{{
     // background-color "transparent"
 } // }}}
 
-// startup processes {{{
+// startup processes {{"{{{"}}
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
 spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/current" "-m" "fill"
@@ -234,7 +245,7 @@ spawn-at-startup "wl-clip-persist" "--clipboard" "regular" "--all-mime-type-rege
 spawn-at-startup "playerctld" "daemon"
 // }}}
 
-environment { // {{{
+environment { // {{"{{{"}}
     DISPLAY ":0"
 } // }}}
 
@@ -263,7 +274,7 @@ screenshot-path "~/Images/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 // Animation settings.
 // The wiki explains how to configure individual animations:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Animations
-animations { // {{{
+animations { // {{"{{{"}}
     // Uncomment to turn off all animations.
     // off
 
@@ -274,7 +285,7 @@ animations { // {{{
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
-// {{{ window rules
+// {{"{{{"}} window rules
 
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
@@ -378,7 +389,7 @@ hotkey-overlay {
     skip-at-startup
 }
 
-binds { // {{{
+binds { // {{"{{{"}}
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
     // like wev.
