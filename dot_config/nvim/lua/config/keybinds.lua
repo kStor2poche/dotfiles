@@ -12,14 +12,6 @@ m.setup = function ()
 
     -- Peek markdown preview --> moved to after/ftplugin/markdown.lua
 
-    -- Bufferline commands
-    vim.keymap.set("n", "<leader>h", "<CMD>BufferLineCyclePrev<CR>", { desc = "Bufferline - Prev" })
-    vim.keymap.set("n", "<leader>l", "<CMD>BufferLineCycleNext<CR>", { desc = "Bufferline - Next" })
-    vim.keymap.set("n", "<leader>H", "<CMD>BufferLineMovePrev<CR>", { desc = "Bufferline - Swap with prev" })
-    vim.keymap.set("n", "<leader>L", "<CMD>BufferLineMoveNext<CR>", { desc = "Bufferline - Swap with next" })
-    vim.keymap.set("n", "<leader>d", "<CMD>BufferLinePickClose<CR>", { desc = "Bufferline - Close" })
-    vim.keymap.set("n", "<leader>p", "<CMD>BufferLinePick<CR>", { desc = "Bufferline - Pick" })
-
     -- Oil.nvim
     vim.keymap.set("n", "<BS>", "<CMD>Oil --float --preview<CR>", { desc = "Oil - Open float" })
     vim.keymap.set("n", "<C-BS>", "<CMD>Oil<CR>", { desc = "Oil - Open fullscreen" })

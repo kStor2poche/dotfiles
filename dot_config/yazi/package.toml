@@ -5,22 +5,22 @@ hash = "92fbb5483657fa7976cdf4e0104e18e0"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "398796d"
+rev = "57f1863"
 hash = "56fdabc96fc1f4d53c96eb884b02a5be"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "398796d"
+rev = "57f1863"
 hash = "3996fc74044bc44144b323686f887e1"
 
 [[plugin.deps]]
 use = "Ape/open-with-cmd"
-rev = "433cf30"
-hash = "86e0312b01bc5762813c6c1d0517f073"
+rev = "e3d430f"
+hash = "d29c1ffa99099181faf8c01d1f59aa4c"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:toggle-pane"
-rev = "398796d"
+rev = "57f1863"
 hash = "8a7c58225816a163a6e8730c0adafbc8"
 
 [[plugin.deps]]
@@ -30,5 +30,5 @@ hash = "e02a788e5b8ae0fb47fd0193dda589cc"
 
 [[flavor.deps]]
 use = "bennyyip/gruvbox-dark"
-rev = "2c61c90"
-hash = "3685f7557e7425381b65c883c688f593"
+rev = "619fdc5"
+hash = "d4c7003ec6dc4efd5d3a050d5c2f2575"

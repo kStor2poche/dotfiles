@@ -25,8 +25,6 @@ return {
     "neovim/nvim-lspconfig",
 
     -- Custom LSPs/addons
-    -- "Hoffs/omnisharp-extended-lsp.nvim",
-    -- "barreiroleo/ltex-extra.nvim", -- TODO: maybe uninstall because it seems that none of those plugins really work
     {
         'saecki/crates.nvim',
         tag = "stable",

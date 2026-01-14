@@ -239,7 +239,7 @@ m.setup = function()
     vim.lsp.config("clangd", {
         capabilities = capabilities,
         on_attach = on_attach,
-        cmd = { "clangd", "--fallback-style=UseTab: Never", "--fallback-style=IndentWidth: 4", "--fallback-style=TabWidth: 4" },
+        cmd = { "clangd", "--fallback-style=UseTab: Never", "--fallback-style=IndentWidth: 4" },
     })
     vim.lsp.enable("clangd")
 
