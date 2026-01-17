@@ -28,5 +28,6 @@ for_window [app_id="org.qbittorrent.qBittorrent" title="^[^(qBittorrent v.*)].*"
 for_window [class="VirtualBox" title="^.* - Settings$"] floating enable
 for_window [app_id="qalculate-gtk"] floating enable
 for_window [title="^Typst Preview .*$"] dim_inactive 0.15
+for_window [app_id="nm-connection-editor"] floating enable
 
 # vim:ft=swayconfig
