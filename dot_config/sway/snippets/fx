@@ -6,7 +6,7 @@
 scratchpad_minimize enable
 
 # Animations
-animation_duration_ms = 300
+# animation_duration_ms = 300
 
 # Window corner radius in px
 corner_radius 3
