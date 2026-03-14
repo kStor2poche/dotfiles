@@ -57,7 +57,7 @@ return {
                 TRACE = "✎",
                 WARN = ""
             },
-            background_colour = 'Normal',
+            background_colour = '#1d2021',
         },
         init = function()
             vim.notify = require("notify")
