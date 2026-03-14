@@ -44,6 +44,7 @@ if status is-interactive
     # Aliases
     # @fish-lsp-disable 2002
     alias l='ll'
+    alias lah='ls -lah'
     alias ip='ip --color=auto'
     alias mkdir='mkdir -p -v'
     alias update='paru -Syu'
@@ -91,6 +92,7 @@ if status is-interactive
     {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     opam env | source
     eww shell-completions --shell fish | source
+    arduino-cli completion fish | source
     {{- end }}
     zoxide init fish | source
     chezmoi completion fish | source
