@@ -12,6 +12,8 @@ font pango:SpaceMono Nerd Font Mono 11
 
 # Default cursor
 seat seat0 xcursor_theme Bibata-Original-Classic 24
+# Peak cursor experience
+# seat seat0 xcursor_theme Spamton 24
 
 # Colors
 # class					border	backgr.	text	indicator	child_border

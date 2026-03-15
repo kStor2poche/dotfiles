@@ -82,6 +82,7 @@ include /etc/sway/config.d/*
 
     # Start your launcher
     bindsym $mod+space exec $menu
+    bindsym $mod+Mod1+space exec "rofimoji -r ''"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -279,3 +280,5 @@ assign [class="Spotify"] → $ws9
 assign [app_id="discord"] → $ws10
 assign [class="vesktop"] → $ws10
 assign [app_id="vesktop"] → $ws10
+assign [app_id="cinny"] → $ws10
+assign [app_id="org.gnome.Fractal"] → $ws10

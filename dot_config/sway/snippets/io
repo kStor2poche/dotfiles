@@ -35,8 +35,8 @@ input type:pointer {
 # Wallpaper & general settings
 output * {
     bg /usr/share/backgrounds/current fill
-    adaptive_sync on
-    max_render_time off
+    adaptive_sync off
+    max_render_time 1
 }
 
 # Single screen config (has to be separate because of x11 & wine)

@@ -3,7 +3,7 @@
 #**--      --**#
 
 # Minimize emulation
-scratchpad_minimize enable
+# scratchpad_minimize enable
 
 # Animations
 # animation_duration_ms = 300
@@ -32,6 +32,6 @@ layer_effects "eww-powermenu" blur_ignore_transparent enable; blur enable; blur_
 layer_effects "eww-statusbar" blur_ignore_transparent enable; blur enable; blur_xray enable; shadows disable;
 layer_effects "notifications" blur_ignore_transparent enable; blur enable; blur_xray disable; shadows enable; corner_radius 3;
 layer_effects "swaync-notification-window" blur_ignore_transparent enable; blur enable; blur_xray disable; shadows disable; corner_radius 3;
-# layer_effects "wofi" blur_ignore_transparent enable; blur enable; blur_xray disable; shadows disable;
+layer_effects "wofi" blur_ignore_transparent enable; blur enable; blur_xray disable; shadows disable;
 
 # vim:ft=config
