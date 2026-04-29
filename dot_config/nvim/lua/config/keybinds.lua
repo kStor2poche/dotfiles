@@ -10,6 +10,9 @@ m.setup = function ()
     vim.keymap.set("n", "<leader>x", "<CMD>%!xxd<CR>", { desc = "Xxd - Buffer hexdump" })
     vim.keymap.set("n", "<leader>X", "<CMD>%!xxd -r<CR>", { desc = "Xxd - Reverse buffer hexdump"})
 
+    -- Undotree
+    vim.keymap.set("n", "<leader>u", require("undotree").open, { desc = "Open undotree" })
+
     -- Peek markdown preview --> moved to after/ftplugin/markdown.lua
 
     -- Oil.nvim
@@ -30,11 +33,8 @@ m.setup = function ()
     vim.keymap.set("n", "<leader>fn", require("telescope").extensions.notify.notify, { desc = "Telescope - notification history" })
 
     -- Lazygit
----@diagnostic disable-next-line: undefined-field
     vim.keymap.set("n", "<leader>gg", Snacks.lazygit.open, { desc = "Open Lazygit" })
----@diagnostic disable-next-line: undefined-field
     vim.keymap.set("n", "<leader>gl", Snacks.lazygit.log, { desc = "Open Lazygit (log view)" })
----@diagnostic disable-next-line: undefined-field
     vim.keymap.set("n", "<leader>gf", Snacks.lazygit.log_file, { desc = "Open Lazygit (current file log)" })
 
     -- Typst-preview

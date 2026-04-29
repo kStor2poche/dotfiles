@@ -270,7 +270,7 @@ include /etc/sway/config.d/*
 # Change mouse behavior
 focus_follows_mouse no
 # Hide cursor on current seat (-) after 3000ms of inactivity
-seat seat0 hide_cursor 3000
+# seat seat0 hide_cursor 3000
 
 # Assigning apps to specific workspaces
 assign [app_id="org.mozilla.Thunderbird"] → $ws8

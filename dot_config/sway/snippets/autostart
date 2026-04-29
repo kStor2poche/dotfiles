@@ -19,6 +19,7 @@ exec "playerctld daemon"
 exec "$scriptdir/bar.sh"
 exec easyeffects --gapplication-service
 exec xrandr --output "DP-1" --primary
+# exec openrgb --startminimized
 
 # brightness management etc etc
 # exec "gammastep -m wayland -o -b 1.0:0.6 -l 48.9990817:0.7478326"

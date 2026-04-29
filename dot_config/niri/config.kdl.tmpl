@@ -379,6 +379,22 @@ window-rule {
 }
 // }}}
 
+// {{"{{{"}} blur rules
+// layer-rule {
+//     match layer="overlay"
+//
+//     background-effect {
+//         blur true
+//     }
+// }
+window-rule {
+    match app-id="^kitty$|^neovide$"
+
+    background-effect {
+        blur true
+    }
+}
+// }}}
 gestures {
     hot-corners {
         off
@@ -449,6 +465,7 @@ binds { // {{"{{{"}}
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false { toggle-overview; }
+    // MouseBack+MouseForward repeat=false { toggle-overview; } // requires a modifier key, unfortunately
 
     Mod+Q { close-window; }
 

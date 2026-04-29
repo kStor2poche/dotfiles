@@ -14,6 +14,10 @@
     :initial {[{"output": "null", "is_focused": true, "idx": "1"}]}
     "/home/laio/.config/eww/scripts/niri_workspaces.sh"
 )
+(deflisten overviewState
+    :initial false
+    "/home/laio/.config/eww/scripts/niri_overview_state.sh"
+)
 
 (defwidget workspaces [array screen]
     (eventbox
@@ -35,6 +39,15 @@
                     :class "${entry.is_focused ? 'sbar-ws-focused' : 'sbar-ws-unfocused'} ${entry.active_window_id == "null" ? "" :"sbar-ws-nonempty"}"
                     {entry.active_window_id == "null" ? "+" :"●"}
                 )
+            )
+            (button
+                :onclick `niri msg action toggle-overview`
+                :hexpand true
+                :vexpand true
+                :width 33
+                :visible true
+                :class "sbar-overview ${overviewState ? 'sbar-overview-active' : ''}"
+                ""
             )
         )
     )

@@ -36,7 +36,7 @@ input type:pointer {
 output * {
     bg /usr/share/backgrounds/current fill
     adaptive_sync off
-    max_render_time 1
+    max_render_time off
 }
 
 # Single screen config (has to be separate because of x11 & wine)

@@ -37,6 +37,25 @@ $gaps: 10px;
     padding: 0.25em 0.5em;
 }
 
+.sbar-overview {
+    background: rgba($color-bg, $opacity);
+    box-shadow: none;
+    transition: all .3s ease-in-out;
+    color: $color-white;
+    &:hover {
+        color: $color-fg;
+    }
+
+    &.sbar-overview-active {
+        background: rgba($color-fg, $opacity);
+        box-shadow: inset 0 0 0.5em $color-white;
+        color: $color-bg;
+        &:hover {
+            background: rgba($color-fg, 1);
+        }
+    }
+}
+
 // we could try to have a third class for the last focused ws in order to have better animations
 .sbar-ws-unfocused {
     background-color: rgba($color-bg, $opacity);

@@ -24,8 +24,8 @@
 ;;                      ;;
 ;; Left side of the bar ;;
 ;;                      ;;
-(include {get_env("XDG_CURRENT_DESKTOP") == "sway" ? "./statusbar_sway_workspaces.yuck" : "null.yuck"})
-(include {get_env("XDG_CURRENT_DESKTOP") == "niri" ? "./statusbar_niri_workspaces.yuck" : "null.yuck"})
+(include {get_env("XDG_CURRENT_DESKTOP") == "sway" ? "statusbar_sway_workspaces.yuck" : "null.yuck"})
+(include {get_env("XDG_CURRENT_DESKTOP") == "niri" ? "statusbar_niri_workspaces.yuck" : "null.yuck"})
 
 ;;                   ;;
 ;; Center of the bar ;;

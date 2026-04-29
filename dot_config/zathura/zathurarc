@@ -1,9 +1,9 @@
 set selection-clipboard clipboard    
-~| colors                    
+
 set highlight-color rgba(172,112,194,0.5)    
 set highlight-fg \#45A896    
 set highlight-active-color rgba(172,112,194,0.5)    
-~| statusbar                 
+
 map b toggle_statusbar       
 set statusbar-home-tilde true    
 set guioptions ''            
