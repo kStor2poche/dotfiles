@@ -8,7 +8,12 @@ timestr=%H:%M
 datestr=
 # font=BlexMono Nerd Font Mono
 font=Space Grotesk
+{{- if eq .chezmoi.hostname "archdesktop" }}
 font-size=30
+{{- end }}
+{{- if eq .chezmoi.hostname "archlaptop" }}
+font-size=50
+{{- end }}
 effect-blur=7x5
 effect-vignette=0.3:0.9
 # fade-in=0.2
