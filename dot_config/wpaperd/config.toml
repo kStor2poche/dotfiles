@@ -1,0 +1,8 @@
+[default]
+duration = "10m"
+mode = "center"
+sorting = "ascending"
+
+[any]
+path = "/home/laio/Images/bg pics/current"
+transition = { fade = {} }

@@ -235,7 +235,8 @@ layout { // {{"{{{"}}
 // startup processes {{"{{{"}}
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
-spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/current" "-m" "fill"
+// spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/current" "-m" "fill"
+spawn-at-startup "wpaperd -d"
 spawn-at-startup "swayidle" "-w" "before-sleep" "swaylock -f"
 spawn-at-startup "swaync"
 spawn-at-startup "xwayland-satellite"
@@ -683,4 +684,4 @@ binds { // {{"{{{"}}
     Mod+G { spawn-sh "if [[ -z $(pgrep gammastep) ]]; then systemctl start --user gammastep; else systemctl stop --user gammastep; fi"; }
 } // }}}
 
-// vim:foldmethod=marker
+// vim:foldmethod=marker:ft=kdl
