@@ -39,14 +39,22 @@ output * {
     max_render_time off
 }
 
+{{- if eq .chezmoi.hostname "archlaptop" }}
+output eDP-1 pos 0 0 res 2560x1600@165.040Hz adaptive_sync off scale 1.5 subpixel rgb
+{{- end }}
+{{- if eq .chezmoi.hostname "archdesktop" }}
 # Single screen config (has to be separate because of x11 & wine)
-    # output DP-1 pos 0 0 res 2560x1440@69.923Hz adaptive_sync on
+    output DP-1 pos 0 0 res 2560x1440@179.981Hz adaptive_sync off
 # Dual screen config
-    # output DP-1 pos 1680 0 res 2560x1440@69.923Hz adaptive_sync on
-    output DP-1 pos 0 0 res 2560x1440@179.952Hz adaptive_sync off render_bit_depth 10 
-    # this gives weiiiiird results. srgb content looks horribly bad.
-    # color_profile icc /home/laio-shared/S27FG50xS.icm
-    # TODO: triangle subpixel ??
+    output DP-1 pos 1680 0 res 2560x1440@179.981Hz adaptive_sync off
     # output HDMI-A-1 pos 0 200 mode --custom 1680x1050@66Hz
+# this gives weiiiiird results. srgb content looks horribly bad.
+# color_profile icc /home/laio-shared/S27FG50xS.icm
+# TODO: triangle subpixel ??
+{{- end }}
+{{- if eq .chezmoi.hostname "archleo" }}
+output eDP-1 pos 0 0 res 1366x768@60.003Hz adaptive_sync off scale 1 subpixel rgb
+{{- end }}
+
 
 # vim:ft=swayconfig
