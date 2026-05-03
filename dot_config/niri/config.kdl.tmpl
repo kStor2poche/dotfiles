@@ -395,6 +395,7 @@ window-rule {
     }
 }
 // }}}
+
 gestures {
     hot-corners {
         off
@@ -677,6 +678,9 @@ binds { // {{"{{{"}}
 
     // Toggle compact mode
     Mod+Shift+C { spawn "/home/laio-shared/sway-scripts/bar-toggle.sh"; }
+
+    // Toggle gammastep
+    Mod+G { spawn-sh "if [[ -z $(pgrep gammastep) ]]; then systemctl start --user gammastep; else systemctl stop --user gammastep; fi"; }
 } // }}}
 
 // vim:foldmethod=marker

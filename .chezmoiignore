@@ -1,0 +1,21 @@
+##@ vim:ft=template
+
+README.md
+
+{{- if not .gui }}
+.config/eww
+.config/neovide
+.config/niri
+.config/swaylock
+.config/swaync
+.config/zathura
+.config/sway/snippets/fx
+{{- if not .server }}
+.config/sway
+.config/wofi
+{{- end }}
+{{- end }}
+
+{{- if not .daily }}
+.config/nvchecker
+{{- end }}

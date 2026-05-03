@@ -34,10 +34,13 @@ $gaps: 10px;
 
 .sbar-ws-box button {
     min-width: 1.5em;
-    padding: 0.25em 0.5em;
+    padding: 0.25em 0.25em 0.15em;
 }
 
 .sbar-overview {
+    font-family: Phosphor;
+    font-size: 1.25em;
+    padding: 0em 0.25em;
     background: rgba($color-bg, $opacity);
     box-shadow: none;
     transition: all .3s ease-in-out;

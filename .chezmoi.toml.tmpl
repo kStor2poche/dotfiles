@@ -1,0 +1,9 @@
+##@ vim:ft=toml
+[merge]
+    command = "nvim"
+    {{"args = [\"-d\", \"{{ .Destination }}\", \"{{ .Source }}\", \"{{ .Target }}\"]"}}
+
+[data]
+    daily = {{- if eq .chezmoi.hostname "archlaptop" "archdesktop" }} true {{ else }} false {{- end }}
+    gui = {{- if eq .chezmoi.hostname "archlaptop" "archdesktop" }} true {{ else }} false {{- end }}
+    server = {{- if eq .chezmoi.hostname "archleo" }} true {{ else }} false {{- end }}

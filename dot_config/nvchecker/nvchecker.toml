@@ -1,0 +1,100 @@
+[__config__]
+oldver = "/home/laio/.config/nvchecker/old.json"
+newver = "/home/laio/.config/nvchecker/new.json"
+
+# AUR - Phosphor
+[phosphor]
+source = "github"
+github = "phosphor-icons/web"
+use_latest_release = true
+[ttf-phosphor-icons]
+source = "aur"
+aur = "ttf-phosphor-icons"
+
+# AUR - ghidra-git
+[ghidra]
+source = "git"
+git = "https://github.com/NationalSecurityAgency/ghidra.git"
+use_commit = true
+[ghidra-git]
+source = "aur"
+aur = "ghidra-git"
+
+# AUR - nautilus-raw-thumbnails
+[nautilus-raw-thumbnails]
+source = "git"
+git = "https://github.com/emuskardin/nautilus-raw-thumbnails"
+use_commit = true
+[nautilus-raw-thumbnails-git]
+source = "aur"
+aur = "nautilus-raw-thumbnails-git"
+
+# servre
+[docker-socket-proxy]
+source = "github"
+github = "tecnativa/docker-socket-proxy"
+use_latest_release = true
+
+[traefik]
+source = "github"
+github = "traefik/traefik"
+use_latest_release = true
+
+[portainer]
+source = "github"
+github = "portainer/portainer"
+use_latest_release = true
+
+[gluetun]
+source = "github"
+github = "qdm12/gluetun"
+use_latest_release = true
+
+[radarr]
+source = "github"
+github = "linuxserver/docker-radarr"
+use_latest_release = true
+
+[sonarr]
+source = "github"
+github = "linuxserver/docker-sonarr"
+use_latest_release = true
+
+[lidarr]
+source = "github"
+github = "linuxserver/docker-lidarr"
+use_latest_release = true
+
+[prowlarr]
+source = "github"
+github = "linuxserver/docker-prowlarr"
+use_latest_release = true
+
+[flaresolverr]
+source = "github"
+github = "flaresolverr/flaresolverr"
+use_latest_release = true
+
+[seerr]
+source = "github"
+github = "seerr-team/seerr"
+use_latest_release = true
+
+[jellyfin]
+source = "github"
+github = "linuxserver/docker-jellyfin"
+use_latest_release = true
+
+[tuwunel]
+source = "github"
+github = "matrix-construct/tuwunel"
+use_latest_release = true
+
+[vaultwarden]
+source = "github"
+github = "dani-garcia/vaultwarden"
+use_latest_release = true
+
+[postgres]
+source = "archpkg"
+archpkg = "postgresql"
