@@ -1,8 +1,4 @@
-// Check the wiki for a full description of the configuration:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
-
 // Input device configuration.
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 input { // {{"{{{"}}
     // mod-key "Alt" // I modded the keyboard to have a normally-placed win key!
     keyboard {
@@ -63,7 +59,7 @@ output "DP-1" { // {{"{{{"}}
 }
 output "HDMI-A-1" {
     // off
-    // mode "1680x1050"
+    mode "2560x1440@60"
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
@@ -72,7 +68,7 @@ output "HDMI-A-1" {
     // Position of the output in the global coordinate space. (sizes are scaled)
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=0 y=0
+    position x=-2560 y=0
     variable-refresh-rate on-demand=true
 }
 {{- end}}
@@ -235,8 +231,13 @@ layout { // {{"{{{"}}
 // startup processes {{"{{{"}}
 // Note that running niri as a session supports xdg-desktop-autostart,
 // which may be more convenient to use.
-// spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/current" "-m" "fill"
-spawn-at-startup "wpaperd -d"
+spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/current" "-m" "fill"
+// Put swaybg inside the overview backdrop.
+layer-rule {
+    match namespace="^wallpaper$"
+    place-within-backdrop true
+}
+spawn-at-startup "wpaperd" "-d"
 spawn-at-startup "swayidle" "-w" "before-sleep" "swaylock -f"
 spawn-at-startup "swaync"
 spawn-at-startup "xwayland-satellite"
@@ -528,6 +529,8 @@ binds { // {{"{{{"}}
     Mod+Shift+Page_Up   { move-workspace-up; }
     Mod+Shift+U         { move-workspace-down; }
     Mod+Shift+I         { move-workspace-up; }
+    Mod+Shift+WheelScrollDown       { move-workspace-down; }
+    Mod+Shift+WheelScrollUp         { move-workspace-up; }
 
     // You can bind mouse wheel scroll ticks using the following syntax.
     // These binds will change direction based on the natural-scroll setting.
@@ -547,8 +550,8 @@ binds { // {{"{{{"}}
 
     // Usually scrolling up and down with Shift in applications results in
     // horizontal scrolling; these binds replicate that.
-    Mod+Shift+WheelScrollDown      { focus-column-right; }
-    Mod+Shift+WheelScrollUp        { focus-column-left; }
+    // Mod+Shift+WheelScrollDown      { focus-column-right; }
+    // Mod+Shift+WheelScrollUp        { focus-column-left; }
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
 
@@ -682,6 +685,9 @@ binds { // {{"{{{"}}
 
     // Toggle gammastep
     Mod+G { spawn-sh "if [[ -z $(pgrep gammastep) ]]; then systemctl start --user gammastep; else systemctl stop --user gammastep; fi"; }
+    
+    // Toggle HDMI-A-1
+    Mod+Shift+M { spawn-sh "if [[ $(niri msg -j outputs | jq '.\"HDMI-A-1\".current_mode') == 'null' ]]; then niri msg output HDMI-A-1 on; else niri msg output HDMI-A-1 off; fi"; }
 } // }}}
 
 // vim:foldmethod=marker:ft=kdl

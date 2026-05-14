@@ -21,7 +21,7 @@
 
 (defwidget workspaces [array screen]
     (eventbox
-        :onscroll "if [[ {} = 'up' ]];then niri msg action focus-workspace-up; else niri msg action focus-workspace-down; fi"
+        :onscroll "/home/laio/.config/eww/scripts/niri_goto_next_prev_ws_monitor.fish {} ${screen}"
         (box
             :class "sbar-ws-box"
             :orientation "h"
@@ -31,7 +31,7 @@
 
             (for entry in array
                 (button
-                    :onclick `/home/laio/.config/eww/scripts/goto_niri_ws.sh "${entry.idx}"`
+                    :onclick `niri msg action focus-workspace "${entry.idx}"`
                     :hexpand true
                     :vexpand true
                     :width 33
