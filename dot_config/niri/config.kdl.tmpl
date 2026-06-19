@@ -245,6 +245,10 @@ spawn-at-startup "/home/laio-shared/sway-scripts/bar.sh"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "wl-clip-persist" "--clipboard" "regular" "--all-mime-type-regex" "(?i)^(?!image/x-inkscape-svg).+"
 spawn-at-startup "playerctld" "daemon"
+{{- if eq .chezmoi.hostname "archdesktop" }}
+// spawn-at-startup "dex" "-a"
+spawn-at-startup "dex" "/home/laio/.config/autostart/OpenRGB.desktop"
+{{- end }}
 // }}}
 
 environment { // {{"{{{"}}
@@ -427,6 +431,7 @@ binds { // {{"{{{"}}
     Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+Y hotkey-overlay-title="Open a Terminal: kitty" { spawn "env" "START_YAZI='true'" "kitty"; }
     Mod+Space hotkey-overlay-title="Run an Application: wofi" { spawn "wofi"; }
+    Mod+Alt+Space { spawn "rofimoji" "-r" ""; }
     Mod+B hotkey-overlay-title="Web Bowser: zen" { spawn "zen-browser"; }
     Mod+D hotkey-overlay-title="Chat Client: vesktop" { spawn "vesktop" "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"; }
     Mod+E hotkey-overlay-title="File explorer: nautilus" { spawn "nautilus"; }

@@ -93,10 +93,33 @@ return {
         "nvim-lualine/lualine.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
         opts = {
-             options = {
-                 icons_enabled = true,
-                 theme = "gruvbox",
-             },
+            options = {
+                icons_enabled = true,
+                theme = "gruvbox",
+            },
+            sections = {
+                -- lualine_a = {'mode'},
+                -- lualine_b = {'branch', 'diff', 'diagnostics'},
+                lualine_c = {
+                    'filename',
+                    function() -- hex representation of char under cursor
+                        local col = vim.api.nvim_win_get_cursor(0)[2]
+                        local line = vim.api.nvim_get_current_line()
+                        -- maybe I need vim.o.fileencoding, maybe not ? afaik neovim always uses utf-8 internally
+                        local b = vim.str_byteindex(line, "utf-8", col+1, true)
+                        local e = vim.str_utf_end(line, b)
+                        local chr_bytes = {line:byte(b, b+e)}
+                        local chr = "0x"
+                        for _, chr_byte in ipairs(chr_bytes) do
+                            chr = chr..string.format("%02x", chr_byte)
+                        end
+                        return chr
+                    end
+                },
+                -- lualine_x = {'encoding', 'fileformat', 'filetype'},
+                -- lualine_y = {'progress'},
+                -- lualine_z = {'location'}
+            },
          }
     },
 }

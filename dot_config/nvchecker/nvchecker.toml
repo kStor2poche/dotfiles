@@ -43,7 +43,7 @@ use_latest_release = true
 [portainer]
 source = "github"
 github = "portainer/portainer"
-use_latest_release = true
+use_max_release = true
 
 [gluetun]
 source = "github"

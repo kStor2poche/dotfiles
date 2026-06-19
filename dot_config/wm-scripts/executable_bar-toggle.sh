@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scriptdir="/home/laio-shared/sway-scripts/"
+scriptdir=$(dirname "$0")
 # kinda cheap since other widgets might have state but eh
 state=$(eww state)
 

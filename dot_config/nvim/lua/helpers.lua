@@ -25,7 +25,7 @@ end
 ---@param table_2 table
 ---@return table
 ---Remove all occurences of an element from `table_2` in `table_1`
-m.tbl_remove_vals = function (table_1, table_2)
+m.tbl_remove_vals = function(table_1, table_2)
     local ret = {}
     for _,e in pairs(table_1) do
         for _,f in pairs(table_2) do

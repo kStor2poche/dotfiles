@@ -28,6 +28,20 @@ end
 
 return {
     -- General utils
+    {
+        -- dir = "/home/laio/Documents/Programmation/lua-nvim-plugins/hexfmt.nvim",
+        "kStor2poche/hexfmt.nvim",
+        ---@type HexfmtOpts
+        opts = {
+            casing = "conserve",
+            keymap = {
+                swap_endianness = "<leader>hs",
+                escape = "<leader>he",
+                unescape = "<leader>hu",
+                tweak_settings = "<leader>ht",
+            }
+        },
+    },
     "tpope/vim-fugitive",
     {
         'stevearc/oil.nvim',

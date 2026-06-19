@@ -17,7 +17,7 @@ end
 #**--                --**#
 #   Interactive config   #
 #**--                --**#
-if status is-interactive
+if status is-interactive # TODO: see how to detect when we are in nvim because this executes when I <leader>x and it's quite annoying
     {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     # Don't echo input chars while loading
     stty -echo
