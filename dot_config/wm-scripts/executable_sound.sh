@@ -65,9 +65,9 @@ case "$1" in
         exit 1
         ;;
     bu)
-        if [[ vol -ne 100 ]]; then
+        if [[ vol -le 95 ]]; then
             newval=$((vol + 5))
-        elif [[ vol -ge 95 ]]; then
+        elif [[ vol -gt 95 ]]; then
             newval='100'
         else
             newval=$vol
@@ -87,7 +87,7 @@ case "$1" in
         notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-${mute_icon}.svg" -h int:value:"$vol" "Volume" "${vol}"%
             pactl set-sink-mute @DEFAULT_SINK@ no
         fi
-        exit 1
+        exit 0
         ;;
     mm)
         if [[ $micmute = "no" ]]; then
@@ -97,8 +97,9 @@ case "$1" in
         notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/microphone-sensitivity-high.svg" "Microphone" "À l'écoute"
             pactl set-source-mute @DEFAULT_SOURCE@ no
         fi
-        exit 1
+        exit 0
         ;;
     *)
         swaynag -t warning -m "Error either in sway config file or $0"
+        exit 1
 esac

@@ -1,4 +1,4 @@
-##@ vim:ft=template
+##@ vim:ft=gotmpl
 
 README.md
 
@@ -18,4 +18,11 @@ README.md
 
 {{- if not .daily }}
 .config/nvchecker
+{{- end }}
+
+{{- if not (eq .chezmoi.hostname "archdesktop") }}
+.config/wm-scripts/brightness_config.sh
+{{- end }}
+{{- if not (eq .chezmoi.hostname "archlaptop") }}
+.config/wm-scripts/brightness.sh
 {{- end }}
