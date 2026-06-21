@@ -55,7 +55,7 @@ output "DP-1" { // {{"{{{"}}
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=0 y=0
-    // variable-refresh-rate
+    variable-refresh-rate
 }
 output "HDMI-A-1" {
     // off
@@ -305,7 +305,7 @@ window-rule {
 
 // Open the Zen picture-in-picture player as floating by default.
 window-rule {
-    match app-id=r#"^zen$"# title="^(Picture-in-Picture|Incrustation vidéo|Mot de passe nécessaire) - Zen Browser$"
+    match app-id=r#"^zen$"# title="^(Picture-in-Picture|Incrustation vidéo|Mot de passe nécessaire - Zen Browser)$"
     open-floating true
 }
 // Same for nautilus

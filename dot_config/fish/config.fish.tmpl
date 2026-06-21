@@ -3,8 +3,11 @@
 #**--           --**#
 {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
 function version_checker
-    if [ ! -e /tmp/nvcmp ];
-        nvchecker 2> /dev/null
+    if [ ! -e /tmp/nvcmp ]
+        set nvc_out (nvchecker 2>&1)
+        if [ -n "$nvc_out" ]
+            echo -e '\e[1;93mWARNING\e[0m: nvchecker errored out'
+        end
         script -q -O /dev/null -c nvcmp | tee /tmp/nvcmp
     else
         # replace loading animation (and in fact don't show it at all)

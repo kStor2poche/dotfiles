@@ -1,4 +1,5 @@
-##@ vim:ft=gotmpl
+{{/* vim:ft=gotmpl
+*/}}
 
 README.md
 
@@ -18,6 +19,9 @@ README.md
 
 {{- if not .daily }}
 .config/nvchecker
+{{- else }}
+{{/* no leakerino */}}
+.config/nvchecker/keyfile.toml
 {{- end }}
 
 {{- if not (eq .chezmoi.hostname "archdesktop") }}

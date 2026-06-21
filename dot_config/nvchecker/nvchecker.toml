@@ -1,6 +1,7 @@
 [__config__]
 oldver = "/home/laio/.config/nvchecker/old.json"
 newver = "/home/laio/.config/nvchecker/new.json"
+keyfile = "/home/laio/.config/nvchecker/keyfile.toml"
 
 # AUR - Phosphor
 [phosphor]
@@ -98,3 +99,8 @@ use_latest_release = true
 [postgres]
 source = "archpkg"
 archpkg = "postgresql"
+
+[minecraft]
+source = "jq"
+url = "https://launchermeta.mojang.com/mc/game/version_manifest.json"
+filter = ".latest.release"
