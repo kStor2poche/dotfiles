@@ -4,7 +4,7 @@
 {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
 function version_checker
     if [ ! -e /tmp/nvcmp ]
-        set nvc_out (nvchecker 2>&1)
+        set nvc_out (nvchecker -l warning 2>&1)
         if [ -n "$nvc_out" ]
             echo -e '\e[1;93mWARNING\e[0m: nvchecker errored out'
         end
