@@ -7,6 +7,7 @@ function version_checker
         set nvc_out (nvchecker -l warning 2>&1)
         if [ -n "$nvc_out" ]
             echo -e '\e[1;93mWARNING\e[0m: nvchecker errored out'
+            echo "$nvc_out"
         end
         script -q -O /dev/null -c nvcmp | tee /tmp/nvcmp
     else
