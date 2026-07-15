@@ -1,12 +1,12 @@
 #**--           --**#
 #   Global config   #
 #**--           --**#
-{{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
+{{- if .daily }}
 function version_checker
     if [ ! -e /tmp/nvcmp ]
         set nvc_out (nvchecker -l warning 2>&1)
         if [ -n "$nvc_out" ]
-            echo -e '\e[1;93mWARNING\e[0m: nvchecker errored out'
+            echo -e '\e[1;93mWARNING\e[0m: nvchecker errored out:'
             echo "$nvc_out"
         end
         script -q -O /dev/null -c nvcmp | tee /tmp/nvcmp
@@ -21,10 +21,13 @@ end
 #**--                --**#
 #   Interactive config   #
 #**--                --**#
-if status is-interactive # TODO: see how to detect when we are in nvim because this executes when I <leader>x and it's quite annoying
-    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
+if status is-interactive
+    {{- if .daily }}
     # Don't echo input chars while loading
-    stty -echo
+    # check if we are in a "real" terminal (e.g. false when we are in nvim)
+    if stty 1>/dev/null 2>&1 0</dev/null
+        stty -echo
+    end
     {{- end }}
 
     # No greeting
@@ -33,9 +36,16 @@ if status is-interactive # TODO: see how to detect when we are in nvim because t
     # Vi bindings
     set -g fish_key_bindings fish_vi_key_bindings
 
-    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
-    # Autorun nvcmp to know if I need to update my server stuff & maintained Aur packages
-    fish --command version_checker 0</dev/null &
+    {{- if .daily }}
+    if stty 1>/dev/null 2>&1 0</dev/null
+        # Autorun nvcmp to know if I need to update my server stuff & maintained Aur packages
+        fish --command version_checker 0</dev/null &
+    end
+
+    function ignore_sigint --on-signal SIGINT
+        # but still pass it to the child shell
+    end
+
     set load_anim "⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏"
     set i 1
     while jobs > /dev/null
@@ -43,6 +53,9 @@ if status is-interactive # TODO: see how to detect when we are in nvim because t
         sleep 0.1
         set i (math  1 + \(\($i + 1\) % (count $load_anim)\))
     end
+
+    # stop ignoring SIGINT
+    functions -e ignore_sigint
     {{- end }}
 
     # Aliases
@@ -93,7 +106,7 @@ if status is-interactive # TODO: see how to detect when we are in nvim because t
     # Auto rehash on pacman install/remove/upgrade using SIGUSR1 (equivalent ??)
 
     # Inits and such
-    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
+    {{- if .daily }}
     opam env | source
     eww shell-completions --shell fish | source
     arduino-cli completion fish | source
@@ -102,7 +115,7 @@ if status is-interactive # TODO: see how to detect when we are in nvim because t
     chezmoi completion fish | source
 
     # Pretty colors in vt
-    if [ "$TERM" = "linux" ]
+    if [ "$TERM" = "linux" ] && stty 1>/dev/null 2>&1 0</dev/null
         setvtrgb /etc/vtrgb.conf
     end
     # yazi autostart thing
@@ -110,8 +123,10 @@ if status is-interactive # TODO: see how to detect when we are in nvim because t
         y
     end
 
-    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
+    {{- if .daily }}
     # Resume stty echo
-    stty echo
+    if stty 1>/dev/null 2>&1 0</dev/null
+        stty echo
+    end
     {{- end }}
 end
