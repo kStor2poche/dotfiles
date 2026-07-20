@@ -25,7 +25,7 @@ if status is-interactive
     {{- if .daily }}
     # Don't echo input chars while loading
     # check if we are in a "real" terminal (e.g. false when we are in nvim)
-    if stty 1>/dev/null 2>&1 0</dev/null
+    if stty 1>/dev/null 2>&1
         stty -echo
     end
     {{- end }}
@@ -37,7 +37,7 @@ if status is-interactive
     set -g fish_key_bindings fish_vi_key_bindings
 
     {{- if .daily }}
-    if stty 1>/dev/null 2>&1 0</dev/null
+    if stty 1>/dev/null 2>&1
         # Autorun nvcmp to know if I need to update my server stuff & maintained Aur packages
         fish --command version_checker 0</dev/null &
     end
@@ -115,7 +115,7 @@ if status is-interactive
     chezmoi completion fish | source
 
     # Pretty colors in vt
-    if [ "$TERM" = "linux" ] && stty 1>/dev/null 2>&1 0</dev/null
+    if [ "$TERM" = "linux" ] && stty 1>/dev/null 2>&1
         setvtrgb /etc/vtrgb.conf
     end
     # yazi autostart thing
@@ -125,7 +125,7 @@ if status is-interactive
 
     {{- if .daily }}
     # Resume stty echo
-    if stty 1>/dev/null 2>&1 0</dev/null
+    if stty 1>/dev/null 2>&1
         stty echo
     end
     {{- end }}
