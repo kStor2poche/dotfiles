@@ -8,6 +8,7 @@ get_focused() {
 cur_focused=$(get_focused)
 while [[ -z $cur_focused ]]; do
     cur_focused=$(get_focused)
+    sleep 0.1
 done
 swaymsg 'move output DP-1'
 swaymsg '[app_id="apps.regreet"] focus'
