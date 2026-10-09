@@ -27,6 +27,11 @@ $opacity: 0.8;
         color: $color-orange;
     }
 }
+.pwer-hibernate {
+    &:hover,&:focus {
+        color: $color-cyan;
+    }
+}
 .pwer-sleep {
     &:hover,&:focus {
         color: $color-blue;
