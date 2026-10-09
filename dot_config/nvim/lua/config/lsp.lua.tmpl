@@ -16,7 +16,6 @@ local default_config = {
     "basedpyright",
     "cssls",
     "glsl_analyzer",
-    "hls",
     "intelephense",
     "java_language_server",
     "rust_analyzer",
@@ -29,13 +28,10 @@ local default_config = {
 local root_dir_config = {}
 local other_config = {
     {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
-    "arduino_language_server", "clangd", "ltex", "lua_ls"
+    "arduino_language_server", "clangd", "ltex", "lua_ls", "basedpyright",
     {{- end }}
 }
 local globally_installed = {
-    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
-    "hls"
-    {{- end }}
 }
 
 local lsp_list = h.tbl_cat(h.tbl_cat(default_config, root_dir_config), other_config)
@@ -187,6 +183,18 @@ m.setup = function()
         },
     })
     vim.lsp.enable("lua_ls")
+    vim.lsp.config("basedpyright", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+            basedpyright = {
+                analysis = {
+                    -- stubPath = "./stubs" -- might need absolute path
+                }
+            }
+        }
+    })
+    vim.lsp.enable("basedpyright")
 end
 
 return m
