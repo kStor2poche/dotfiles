@@ -44,9 +44,9 @@ output eDP-1 pos 0 0 res 2560x1600@165.040Hz adaptive_sync off scale 1.5 subpixe
 {{- end }}
 {{- if eq .chezmoi.hostname "archdesktop" }}
 # Single screen config (has to be separate because of x11 & wine)
-    output DP-1 pos 0 0 res 2560x1440@179.981Hz adaptive_sync off
+    output DP-1 pos 0 0 res 2560x1440@179.981Hz adaptive_sync off render_bit_depth 10
 # Dual screen config
-    output DP-1 pos 1680 0 res 2560x1440@179.981Hz adaptive_sync off
+    output DP-1 pos 1680 0 res 2560x1440@179.981Hz adaptive_sync off render_bit_depth 10
     # output HDMI-A-1 pos 0 200 mode --custom 1680x1050@66Hz
 # this gives weiiiiird results. srgb content looks horribly bad.
 # color_profile icc /home/laio-shared/S27FG50xS.icm
