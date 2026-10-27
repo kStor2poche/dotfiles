@@ -27,6 +27,7 @@ prepend_keymap = [
     { on = ["<", "o"], run = "linemode owner", desc = "Linemode: owner" },
 
     # plugins
+    { on = "M", run = "plugin mount", desc = "Mount drives" },
     { on = "l", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
     { on = "i", run = "plugin toggle-pane max-preview", desc = "Maximize or restore preview" },
     { on = "<Enter>", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
