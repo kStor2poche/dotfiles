@@ -56,13 +56,6 @@ m.setup = function ()
         vim.keymap.set("c", "<c-s-v>", "<c-r>+", { noremap = true })
         -- vim.keymap.set("i", "<c-r>", "<c-s-v>", { noremap = true }) -- who needed that ?????
     end
-
-
-    --[[
-    nmap <leader>j <C-e> --> repeat doesn't work, I should investigate why
-    nmap <leader>k <C-y>
-    noremap <C-A> <esc> -- , at least we tried
-    ]]--
 end
 
 return m

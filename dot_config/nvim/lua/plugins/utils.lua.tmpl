@@ -31,10 +31,13 @@ return {
     {
         -- dir = "/home/laio/Documents/Programmation/lua-nvim-plugins/hexfmt.nvim",
         "kStor2poche/hexfmt.nvim",
-        ---@type hexfmt.HexfmtOpts
+        ---@type HexfmtOpts
         opts = {
             casing = "conserve",
+            prefix_on_unescape = false,
             keymap = {
+                generate_linewise_bindings = true,
+                hex_encode = "<leader>hn",
                 swap_endianness = "<leader>hs",
                 escape = "<leader>he",
                 unescape = "<leader>hu",

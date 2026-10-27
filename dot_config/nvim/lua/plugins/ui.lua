@@ -34,15 +34,19 @@ return {
     },
     {
         "serhez/bento.nvim",
-        config = function()
-            require("bento").setup({
-                ui = {
-                    floating = {
-                        minimal_menu = "dashed"
-                    }
+        opts = {
+            map_last_accessed=true,
+            ui = {
+                mode = "floating",
+                floating = {
+                    minimal_menu = nil
                 }
-            })
-
+            },
+            highlights = {
+                current = "Bold"
+            }
+        },
+        init = function()
             local api = require("bento.api")
 
             -- Register menu keymaps
@@ -74,12 +78,6 @@ return {
                 action = api.actions.split,
                 hl = "DiagnosticVirtualTextInfo",
             })
-            api.register_action("lock", {
-                key = "*",
-                action = api.actions.lock,
-                hl = "DiagnosticVirtualTextWarn",
-            })
-
             -- Set default action
             api.set_default_action("open")
         end,
