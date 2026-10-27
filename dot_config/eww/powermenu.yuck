@@ -2,9 +2,12 @@
     :monitor 0
     :stacking "overlay"
     :focusable "ondemand"
+    :exclusive false
+    :unfocus-close true
     :namespace "eww-powermenu"
-    :geometry (geometry :anchor "bottom center" 
-                        :y "5%"
+    :geometry (geometry :anchor "top right" 
+                        :y "10px"
+                        :x "10px"
               )
     (powermenu_layout)
 )
@@ -14,8 +17,15 @@
          :spacing 15
          :space-evenly false
          :valign "center" :halign "center"
+         :orientation "vertical"
          ;:show-truncated "false"
-        (_buttons :shutdown "shutdown now" 
+        (_buttons ;;:shutdown "notify-send mdrr jpp" 
+                  ;;:reboot "notify-send mdrr jpp"
+                  ;;:hibernate "notify-send mdrr jpp"
+                  ;;:sleep "notify-send mdrr jpp"
+                  ;;:logout "notify-send mdrr jpp"
+                  ;;:lock "notify-send mdrr jpp"
+                  :shutdown "shutdown now"
                   :reboot "reboot"
                   :hibernate "eww close powermenu; systemctl hibernate"
                   :sleep "playerctl -a pause; eww close powermenu; systemctl suspend"
@@ -24,13 +34,15 @@
                   :shutdown_icon "" :reboot_icon "" :logout_icon ""
                   :hibernate_icon "" :sleep_icon "" :lock_icon ""
         )
-        (label :class "pwer-separator" :text "")
-        (button :class "pwer-close-button" :onclick "eww close powermenu" 
+        (button :class "pwer-close-button" :halign "end" :onclick "eww close powermenu" 
             (label :show-truncated "false" :text "")
         )
     )
 )
 
+
+(defvar any_hover false)
+(defvar hovered_class "")
 
 (defwidget _buttons [shutdown shutdown_icon
                      reboot reboot_icon
@@ -38,27 +50,36 @@
                      sleep sleep_icon
                      logout logout_icon
                      lock lock_icon]
-    (box :class "pwer-btns-box" :spacing 5
+    (box :class "pwer-btns-box${any_hover ? ' any-hover':''}"
+         :spacing 5
          :vexpand true :hexpand true
-         :valign "center" :halign "center"
          :space-evenly false
-        (button :class "pwer-shutdown" :onclick shutdown 
-            (label :show-truncated false :text shutdown_icon)
-        )
-        (button :class "pwer-reboot" :onclick reboot 
-            (label :show-truncated false :text reboot_icon)
-        )
-        (button :class "pwer-hibernate" :onclick hibernate 
-            (label :show-truncated false :text hibernate_icon)
-        )
-        (button :class "pwer-sleep" :onclick sleep 
-            (label :show-truncated false :text sleep_icon)
-        )
-        (button :class "pwer-logout" :onclick logout 
-            (label :show-truncated false :text logout_icon)
-        )
-        (button :class "pwer-lock" :onclick lock 
-            (label :show-truncated false :text lock_icon)
+         :valign "center" :halign "center"
+         :orientation "vertical"
+        (_button :name "shutdown" :action shutdown :icon shutdown_icon)
+        (_button :name "reboot" :action reboot :icon reboot_icon)
+        (_button :name "hibernate" :action hibernate :icon hibernate_icon)
+        (_button :name "sleep" :action sleep :icon sleep_icon)
+        (_button :name "logout" :action logout :icon logout_icon)
+        (_button :name "lock" :action lock :icon lock_icon)
+    )
+)
+
+(defwidget _button [name action icon]
+    (eventbox :onhover "eww update any_hover=true; eww update hovered_class=pwer-${name}"
+              :onhoverlost "eww update any_hover=false; eww update hovered_class=''"
+              :valign "center" :halign "end"
+        (button :class "pwer-${name}" :onclick action
+            (box :space-evenly false
+                (revealer :transition "slideleft"
+                          :reveal {hovered_class == "pwer-${name}"}
+                          :duration "350ms"
+                          (label :class "pwer-btn-desc" 
+                                 :text name
+                          )
+                )
+                (label :show-truncated false :text icon)
+            )
         )
     )
 )

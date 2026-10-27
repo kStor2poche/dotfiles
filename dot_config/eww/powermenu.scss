@@ -1,19 +1,24 @@
 $opacity: 0.8;
 
 .pwer-main {
-    background-color: rgba($color-bg, $opacity);
-    padding: 1em;
-    //border-radius: 0.5em;
+    background-color: transparent;
+    padding: 0em;
 }
 .pwer-main button { font-family: "Phosphor"; }
 .pwer-btns-box button {
-    background-color: $color-bg;
-    padding: 1em;
+    background-color: rgba($color-bg, $opacity);
     color: $color-fg;
-    border: solid 1px $color-fg;
     transition: 200ms ease-in-out background-color, color;
     &:hover,&:focus {
         background-color: $color-bg-tertiary;
+    }
+    label {
+    padding: 1em;
+        &.pwer-btn-desc {
+            padding: 0;
+            padding-left: 1em;
+            font-family: "Space Grotesk"; 
+        }
     }
 }
 
@@ -48,8 +53,22 @@ $opacity: 0.8;
     }
 }
 
+.pwer-btns-box.any-hover {
+    .pwer-shutdown,
+    .pwer-reboot,
+    .pwer-hibernate,
+    .pwer-sleep,
+    .pwer-logout,
+    .pwer-lock {
+        &:focus:not(:hover) {
+            color: $color-fg;
+            background-color: rgba($color-bg, $opacity);
+        }
+    }
+}
+
 .pwer-separator {
-    border-left: solid 1px $color-fg;
+    border-top: solid 1px $color-fg;
     color: $color-fg;
 }
 .pwer-close-button {
