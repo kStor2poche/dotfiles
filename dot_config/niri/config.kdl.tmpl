@@ -245,10 +245,6 @@ spawn-at-startup "/home/laio-shared/sway-scripts/bar.sh"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "wl-clip-persist" "--clipboard" "regular" "--all-mime-type-regex" "(?i)^(?!image/x-inkscape-svg).+"
 spawn-at-startup "playerctld" "daemon"
-{{- if eq .chezmoi.hostname "archdesktop" }}
-// spawn-at-startup "dex" "-a"
-spawn-at-startup "dex" "/home/laio/.config/autostart/OpenRGB.desktop"
-{{- end }}
 // }}}
 
 environment { // {{"{{{"}}
