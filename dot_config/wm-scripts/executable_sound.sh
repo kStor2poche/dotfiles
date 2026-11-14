@@ -4,23 +4,29 @@
 vol=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+(?=%)' | head -n 1)
 mute=$(pactl get-sink-mute @DEFAULT_SINK@ | cut -d" " -f2)
 micmute=$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -d" " -f2)
-if [[ $mute = "yes" ]]; then
-    vol_icon="muted"
-elif [[ $vol -le 33 ]]; then
-    vol_icon="low"
-elif [[ $vol -le 66 ]]; then
-    vol_icon="medium"
-else
-    vol_icon="high"
-fi
 
-if [[ $vol -le 33 ]]; then
-    mute_icon="low"
-elif [[ $vol -le 66 ]]; then
-    mute_icon="medium"
-else
-    mute_icon="high"
-fi
+vol_icon() {
+    if [[ $mute = "yes" ]]; then
+        echo "muted"
+    elif [[ $newval -le 33 ]]; then
+        echo "low"
+    elif [[ $newval -le 66 ]]; then
+        echo "medium"
+    else
+        echo "high"
+    fi
+}
+
+
+mute_icon() {
+    if [[ $newval -le 33 ]]; then
+        echo "low"
+    elif [[ $newval -le 66 ]]; then
+        echo "medium"
+    else
+        echo "high"
+    fi
+}
 
 case "$1" in
     d)
@@ -29,7 +35,7 @@ case "$1" in
         else
             newval=$vol
         fi
-        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-${vol_icon}.svg" -h int:value:"$newval" "Volume" "${newval}"%
+        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-$(vol_icon).svg" -h int:value:"$newval" "Volume" "${newval}"%
         if pactl set-sink-volume @DEFAULT_SINK@ "${newval}"%; then
             exit 0
         fi
@@ -42,7 +48,7 @@ case "$1" in
         else
             newval=$vol
         fi
-        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-${vol_icon}.svg" -h int:value:"$newval" "Volume" "${newval}"%
+        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-$(vol_icon).svg" -h int:value:"$newval" "Volume" "${newval}"%
         if pactl set-sink-volume @DEFAULT_SINK@ "${newval}"%; then
             exit 0
         fi
@@ -57,7 +63,7 @@ case "$1" in
         else
             newval=$vol
         fi
-        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-${vol_icon}.svg" -h int:value:"$newval" "Volume" "${newval}"%
+        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-$(vol_icon).svg" -h int:value:"$newval" "Volume" "${newval}"%
         if pactl set-sink-volume @DEFAULT_SINK@ "${newval}"%; then
             exit 0
         fi
@@ -72,7 +78,7 @@ case "$1" in
         else
             newval=$vol
         fi
-        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-${vol_icon}.svg" -h int:value:"$newval" "Volume" "${newval}"%
+        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-$(vol_icon).svg" -h int:value:"$newval" "Volume" "${newval}"%
         if pactl set-sink-volume @DEFAULT_SINK@ "${newval}"%; then
             exit 0
         fi
@@ -84,7 +90,7 @@ case "$1" in
         notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-muted.svg" -h int:value:"$vol" "Volume" "Sourdine"
             pactl set-sink-mute @DEFAULT_SINK@ yes
         else
-        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-${mute_icon}.svg" -h int:value:"$vol" "Volume" "${vol}"%
+        notify-send -a "sound.sh" -u normal -t 1250 -e -h 'string:synchronous:sound.sh' -i "/usr/share/icons/Papirus/48x48/status/notification-audio-volume-$(mute_icon).svg" -h int:value:"$vol" "Volume" "${vol}"%
             pactl set-sink-mute @DEFAULT_SINK@ no
         fi
         exit 0
