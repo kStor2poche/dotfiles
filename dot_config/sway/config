@@ -260,6 +260,8 @@ include /etc/sway/config.d/*
     bindsym $mod+g exec "bash -c 'if [[ -z $(pgrep gammastep) ]]; then systemctl start --user gammastep; else systemctl stop --user gammastep; fi'"
     # toggle screen power
     bindsym $mod+Shift+p output DP-1 power toggle
+    # toggle screen hdr
+    bindsym $mod+Shift+d output DP-1 hdr toggle
     # toggle notification panel
     bindsym $mod+Shift+n exec "swaync-client -t -sw"
 
