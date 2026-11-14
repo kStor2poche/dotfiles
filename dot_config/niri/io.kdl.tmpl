@@ -1,0 +1,54 @@
+// vim:foldmethod=marker:
+input { // {{"{{{"}}
+    keyboard {
+        xkb {
+            layout "be"
+            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+        }
+        numlock
+    }
+
+    {{- if eq .chezmoi.hostname "archlaptop" "archleo" }}
+    touchpad {
+        tap
+        // dwt
+        drag true
+        natural-scroll
+        accel-speed 0.1
+        accel-profile "adaptive"
+        // disabled-on-external-mouse
+    }
+    {{- end }}
+    mouse {
+        accel-speed -0.7
+        accel-profile "flat"
+    }
+} // }}}
+
+{{- if eq .chezmoi.hostname "archdesktop"}}
+output "DP-1" { // {{"{{{"}}
+    mode "2560x1440@179.952"
+    transform "normal"
+    // Position of the output in the global coordinate space. (sizes are scaled)
+    // If the position is unset or results in an overlap, the output is instead placed
+    // automatically.
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+}// }}}
+output "HDMI-A-1" { // {{"{{{"}}
+    // off
+    mode "2560x1440@60"
+    transform "normal"
+    position x=-2560 y=0
+    variable-refresh-rate on-demand=true
+}// }}}
+{{- end}}
+{{- if eq .chezmoi.hostname "archlaptop"}}
+output "eDP-1" { // {{"{{{"}}
+    mode "2560x1600@165.040"
+    transform "normal"
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+    scale 1.5
+}// }}}
+{{- end}}

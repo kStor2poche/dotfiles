@@ -1,0 +1,25 @@
+include "binds.kdl"
+include "io.kdl"
+include "appearance.kdl"
+include "rulz.kdl"
+include "startup.kdl"
+
+environment {
+}
+
+// The path is formatted with strftime(3) to give you the screenshot date and time.
+screenshot-path "~/Images/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+recent-windows {
+    off
+}
+
+hotkey-overlay {
+    skip-at-startup
+}

@@ -1,0 +1,20 @@
+/// Bg
+// Put swaybg inside the overview backdrop.
+spawn-at-startup "swaybg" "-i" "/usr/share/backgrounds/current" "-m" "fill"
+layer-rule {
+    match namespace="^wallpaper$"
+    place-within-backdrop true
+}
+// And use wpaperd for regular bg
+spawn-at-startup "wpaperd" "-d"
+
+/// Ui
+spawn-at-startup "/home/laio-shared/sway-scripts/bar.sh"
+
+/// Utils
+spawn-at-startup "swayidle" "-w" "before-sleep" "swaylock -f"
+spawn-at-startup "swaync"
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-at-startup "wl-clip-persist" "--clipboard" "regular" "--all-mime-type-regex" "(?i)^(?!image/x-inkscape-svg).+"
+spawn-at-startup "playerctld" "daemon"
+

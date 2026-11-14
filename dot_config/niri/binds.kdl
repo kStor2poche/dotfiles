@@ -1,0 +1,278 @@
+// vim:foldmethod=marker:
+// doc {{{
+// Keys consist of modifiers separated by + signs, followed by an XKB key name
+// in the end. To find an XKB name for a particular key, you may use a program
+// like wev.
+//
+// "Mod" is a special modifier equal to Super when running on a TTY, and to Alt
+// when running as a winit window.
+//
+// Most actions that you can bind here can also be invoked programmatically with
+// `niri msg action do-something`.
+//
+// You can also use a shell. Do this if you need pipes, multiple commands, etc.
+// Note: the entire command goes as a single argument in the end.
+// Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
+
+// You can bind touchpad scroll "ticks".
+// Touchpad scrolling is continuous, so for these binds it is split into
+// discrete intervals.
+// These binds are also affected by touchpad's natural-scroll, so these
+// example binds are "inverted", since we have natural-scroll enabled for
+// touchpads by default.
+// Mod+TouchpadScrollDown { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
+// Mod+TouchpadScrollUp   { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
+// }}}
+
+
+binds {
+    // App {{{
+    Mod+Return { spawn "kitty"; }
+    Mod+Y { spawn "env" "START_YAZI='true'" "kitty"; }
+    Mod+Space { spawn "wofi"; }
+    Mod+Alt+Space { spawn "rofimoji" "-r" ""; }
+    Mod+B { spawn "zen-browser"; }
+    Mod+D { spawn "vesktop" "--enable-features=UseOzonePlatform" "--ozone-platform=wayland"; }
+    Mod+E { spawn "nautilus"; }
+    Mod+N { spawn "neovide"; }
+    Mod+T { spawn "thunderbird"; }
+    Mod+Shift+N { spawn "swaync-client" "-t" "-sw"; }
+    // }}}
+
+    // Session management {{{
+    Mod+X { spawn "swaylock"; }
+    Mod+Shift+x allow-when-locked=true repeat=false { spawn "systemctl" "suspend"; }
+    // }}}
+
+    // Media {{{
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/sound.sh" "u"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/sound.sh" "d"; }
+    Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/sound.sh" "bu"; }
+    Shift+XF86AudioLowerVolume allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/sound.sh" "bd"; }
+    XF86AudioMute        allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/sound.sh" "m"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/sound.sh" "mm"; }
+
+    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    // }}}
+
+    // Screen settings {{{
+    XF86MonBrightnessUp allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness.sh" "u"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness.sh" "d"; }
+    Shift+XF86MonBrightnessUp allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness.sh" "bu"; }
+    Shift+XF86MonBrightnessDown allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness.sh" "bd"; }
+    Mod+F1 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "bd"; }
+    Mod+Shift+F1 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "bda"; }
+    Mod+F2 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "bu"; }
+    Mod+Shift+F2 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "bua"; }
+    Mod+F3 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "cd"; }
+    Mod+Shift+F3 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "cda"; }
+    Mod+F4 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "cu"; }
+    Mod+Shift+F4 allow-when-locked=true { spawn "/home/laio-shared/sway-scripts/brightness_contrast.sh" "cua"; }
+    Mod+Shift+P { power-off-monitors; }
+    // }}}
+
+    // Window et al. management {{{
+
+    Mod+O repeat=false { toggle-overview; }
+    // MouseBack+MouseForward repeat=false { toggle-overview; } // requires a modifier key, unfortunately
+
+    // Intra-workspace {{{
+    Mod+Q { close-window; }
+
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+    Mod+WheelScrollRight      { focus-column-right; }
+    Mod+WheelScrollLeft       { focus-column-left; }
+    Mod+Ctrl+WheelScrollRight { move-column-right; }
+    Mod+Ctrl+WheelScrollLeft  { move-column-left; }
+    // Usually scrolling up and down with Shift in applications results in
+    // horizontal scrolling; these binds replicate that.
+    // Mod+Shift+WheelScrollDown      { focus-column-right; }
+    // Mod+Shift+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
+
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+    // }}}
+
+    // Inter-monitor {{{
+    Mod+Shift+H     { focus-monitor-left; }
+    Mod+Shift+J     { focus-monitor-down; }
+    Mod+Shift+K     { focus-monitor-up; }
+    Mod+Shift+L     { focus-monitor-right; }
+
+    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+
+    // Alternatively, there are commands to move just a single window:
+    // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
+    // ...
+
+    // And you can also move a whole workspace to another monitor:
+    Mod+Shift+Ctrl+Y     { move-workspace-to-monitor-left; }
+    Mod+Shift+Ctrl+U     { move-workspace-to-monitor-down; }
+    Mod+Shift+Ctrl+I     { move-workspace-to-monitor-up; }
+    Mod+Shift+Ctrl+O     { move-workspace-to-monitor-right; }
+    // }}}
+
+    // Inter-workspace {{{
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+U              { focus-workspace-down; }
+    Mod+I              { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+    Mod+Ctrl+U         { move-column-to-workspace-down; }
+    Mod+Ctrl+I         { move-column-to-workspace-up; }
+
+    // Alternatively, there are commands to move just a single window:
+    // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
+    // ...
+
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up   { move-workspace-up; }
+    Mod+Shift+U         { move-workspace-down; }
+    Mod+Shift+I         { move-workspace-up; }
+    Mod+Shift+WheelScrollDown       { move-workspace-down; }
+    Mod+Shift+WheelScrollUp         { move-workspace-up; }
+
+    // You can bind mouse wheel scroll ticks using the following syntax.
+    // These binds will change direction based on the natural-scroll setting.
+    //
+    // To avoid scrolling through workspaces really fast, you can use
+    // the cooldown-ms property. The bind will be rate-limited to this value.
+    // You can set a cooldown on any bind, but it's most useful for the wheel.
+    Mod+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+    // }}}
+
+    // Numbered (actually named but whatevs) workspaces {{{
+    Mod+ampersand { focus-workspace 1; }
+    Mod+eacute { focus-workspace 2; }
+    Mod+quotedbl { focus-workspace 3; }
+    Mod+apostrophe { focus-workspace 4; }
+    Mod+parenleft { focus-workspace 5; }
+    Mod+section { focus-workspace 6; }
+    Mod+egrave { focus-workspace 7; }
+    Mod+exclam { focus-workspace 8; }
+    Mod+ccedilla { focus-workspace 9; }
+    Mod+agrave { focus-workspace 10; }
+    Mod+Ctrl+ampersand  { move-column-to-workspace 1; }
+    Mod+Ctrl+eacute { move-column-to-workspace 2; }
+    Mod+Ctrl+quotedbl { move-column-to-workspace 3; }
+    Mod+Ctrl+apostrophe { move-column-to-workspace 4; }
+    Mod+Ctrl+parenleft { move-column-to-workspace 5; }
+    Mod+Ctrl+section { move-column-to-workspace 6; }
+    Mod+Ctrl+egrave { move-column-to-workspace 7; }
+    Mod+Ctrl+exclam { move-column-to-workspace 8; }
+    Mod+Ctrl+ccedilla { move-column-to-workspace 9; }
+    Mod+Ctrl+agrave { focus-workspace 10; }
+    // }}}
+
+    // Switches focus between the current and the previous workspace.
+    // Mod+Tab { focus-workspace-previous; }
+
+    // Column mgmt {{{
+    // The following binds move the focused window in and out of a column.
+    // If the window is alone, they will consume it into the nearby column to the side.
+    // If the window is already in a column, they will expel it out.
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    // Consume one window from the right to the bottom of the focused column.
+    Mod+Comma  { consume-window-into-column; }
+    // Expel the bottom window from the focused column to the right.
+    Mod+Semicolon { expel-window-from-column; }
+
+    Mod+C { center-column; }
+
+    // Center all fully visible columns on screen.
+    Mod+Ctrl+C { center-visible-columns; }
+    // }}}
+
+    // Resizing {{{
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+Shift+F { maximize-window-to-edges; }
+
+    // Expand the focused column to space not taken up by other fully visible columns.
+    // Makes the column "fill the rest of the space".
+    Mod+Ctrl+F { expand-column-to-available-width; }
+
+    // Finer width adjustments.
+    // This command can also:
+    // * set width in pixels: "1000"
+    // * adjust width in pixels: "-5" or "+5"
+    // * set width as a percentage of screen width: "25%"
+    // * adjust width as a percentage of screen width: "-10%" or "+10%"
+    // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
+    // set-column-width "100" will make the column occupy 200 physical screen pixels.
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    // Finer height adjustments when in column with other windows.
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+    // }}}
+
+    // Float {{{
+    // Move the focused window between the floating and the tiling layout.
+    Mod+a       { toggle-window-floating; }
+    Mod+Tab { switch-focus-between-floating-and-tiling; }
+    // }}}
+
+    // Toggle tabbed column display mode.
+    // Windows in this column will appear as vertical tabs,
+    // rather than stacked on top of each other.
+    Mod+Z { toggle-column-tabbed-display; }
+
+    // }}}
+
+    // Screenshot {{{
+    Print { screenshot; }
+    Mod+Shift+S { screenshot; }
+    Ctrl+Print { screenshot-screen; }
+    Alt+Print { screenshot-window; }
+    // }}}
+
+    // In bibitte {{{
+    // The allow-inhibiting=false property can be applied to other binds as well,
+    // which ensures niri always processes them, even when an inhibitor is active.
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    // }}}
+
+    // Misc. - scripts & eww shell {{{
+    // The quit action will show a confirmation dialog to avoid accidental exits.
+    Mod+Shift+E { spawn "eww" "open" "powermenu"; }
+    // Ctrl+Alt+Delete { quit; }
+
+    // Toggle compact mode
+    Mod+Shift+C { spawn "/home/laio-shared/sway-scripts/bar-toggle.sh"; }
+
+    // Toggle gammastep
+    Mod+G { spawn-sh "if [[ -z $(pgrep gammastep) ]]; then systemctl start --user gammastep; else systemctl stop --user gammastep; fi"; }
+    
+    // Toggle HDMI-A-1
+    Mod+Shift+M { spawn-sh "if [[ $(niri msg -j outputs | jq '.\"HDMI-A-1\".current_mode') == 'null' ]]; then niri msg output HDMI-A-1 on; else niri msg output HDMI-A-1 off; fi"; }
+
+    // Get tempo colors
+    Mod+Shift+T { spawn "systemctl" "--user" "start" "pick_up_the_tempo"; }
+    // }}}
+}

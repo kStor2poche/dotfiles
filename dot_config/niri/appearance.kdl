@@ -1,0 +1,112 @@
+// vim:foldmethod=marker:
+layout { // {{{
+    gaps 10
+
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        // Fixed sets the width in logical pixels exactly.
+        // fixed 1920
+    }
+
+    // You can also customize the heights that "switch-preset-window-height" (Mod+Shift+R) toggles between.
+    // preset-window-heights { }
+
+    // You can change the default width of the new windows.
+    default-column-width { proportion 0.5; }
+
+    // You can change how the focus ring looks.
+    focus-ring {
+        width 1
+
+        // Color formats are the same as CSS
+
+        // Color of the ring on the active monitor.
+        active-color "#504945"
+        // Color of the ring on inactive monitors.
+        inactive-color "#505050"
+
+        // You can also use gradients. They take precedence over solid colors.
+        // Gradients are rendered the same as CSS linear-gradient(angle, from, to).
+        // The angle is the same as in linear-gradient, and is optional,
+        // defaulting to 180 (top-to-bottom gradient).
+        // Changing the color space is also supported, check the wiki for more info.
+        //
+        // active-gradient from="#80c8ff" to="#ffbbdd" angle=45
+
+        // You can also color the gradient relative to the entire view
+        // of the workspace, rather than relative to just the window itself.
+        // To do that, set relative-to="workspace-view".
+        //
+        // inactive-gradient from="#505050" to="#808080" angle=45 relative-to="workspace-view"
+    }
+
+    // You can also add a border. It's similar to the focus ring, but always visible.
+    border {
+        // The settings are the same as for the focus ring.
+        off
+    }
+
+    // You can enable drop shadows for windows.
+    shadow {
+        on
+
+        // You can change how shadows look. The values below are in logical
+        // pixels and match the CSS box-shadow properties.
+        softness 30
+        spread 5
+        offset x=0 y=0
+        color "#0007"
+    }
+
+    // Struts shrink the area occupied by windows, similarly to layer-shell panels.
+    // You can think of them as a kind of outer gaps. They are set in logical pixels.
+    // Left and right struts will cause the next window to the side to always be visible.
+    // Top and bottom struts will simply add outer gaps in addition to the area occupied by
+    // layer-shell panels and regular gaps.
+    struts {
+        // left 10
+        // right 10
+        // top 10
+        // bottom 10
+    }
+
+    // background-color "transparent"
+} // }}}
+
+prefer-no-csd
+
+overview {
+    backdrop-color "#1d2021"
+
+    workspace-shadow {
+        // off
+    }
+}
+
+// layer-rule {
+//     match layer="bottom"
+//     background-effect {
+//         xray true
+//         blur true
+//     }
+//     // place-within-backdrop true
+// }
+
+// Rounded corners everywhere !!
+window-rule {
+    geometry-corner-radius 2
+    clip-to-geometry true
+}
+
+// Blur for some
+window-rule {
+    match app-id="^kitty$|^neovide$"
+
+    background-effect {
+        blur true
+    }
+}
