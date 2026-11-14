@@ -91,9 +91,19 @@ source = "github"
 github = "matrix-construct/tuwunel"
 use_latest_release = true
 
-[vaultwarden]
+# [vaultwarden]
+# source = "github"
+# github = "dani-garcia/vaultwarden"
+# use_latest_release = true
+
+[foundry-vtt]
 source = "github"
-github = "dani-garcia/vaultwarden"
+github = "felddy/foundryvtt-docker"
+use_latest_release = true
+
+[dufs]
+source = "github"
+github = "sigoden/dufs"
 use_latest_release = true
 
 [postgres]
