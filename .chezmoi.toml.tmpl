@@ -1,9 +1,12 @@
 ##@ vim:ft=toml
+[diff]
+pager = "delta"
+
 [merge]
-    command = "nvim"
-    {{"args = [\"-d\", \"{{ .Destination }}\", \"{{ .Source }}\", \"{{ .Target }}\"]"}}
+command = "nvim"
+{{"args = [\"-d\", \"{{ .Destination }}\", \"{{ .Source }}\", \"{{ .Target }}\"]"}}
 
 [data]
-    daily = {{- if eq .chezmoi.hostname "archlaptop" "archdesktop" }} true {{ else }} false {{- end }}
-    gui = {{- if eq .chezmoi.hostname "archlaptop" "archdesktop" }} true {{ else }} false {{- end }}
-    server = {{- if eq .chezmoi.hostname "archleo" }} true {{ else }} false {{- end }}
+daily = {{- if eq .chezmoi.hostname "archlaptop" "archdesktop" }} true {{ else }} false {{- end }}
+gui = {{- if eq .chezmoi.hostname "archlaptop" "archdesktop" }} true {{ else }} false {{- end }}
+server = {{- if eq .chezmoi.hostname "archleo" }} true {{ else }} false {{- end }}
