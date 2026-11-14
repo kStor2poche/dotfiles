@@ -17,4 +17,3 @@ spawn-at-startup "swaync"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "wl-clip-persist" "--clipboard" "regular" "--all-mime-type-regex" "(?i)^(?!image/x-inkscape-svg).+"
 spawn-at-startup "playerctld" "daemon"
-
