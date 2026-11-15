@@ -62,6 +62,18 @@ layout { // {{{
         color "#0007"
     }
 
+    tab-indicator {
+        place-within-column
+        gap -10
+        gaps-between-tabs 10
+        length total-proportion=0.05
+        corner-radius 2
+        active-color "#ebdbb280"
+        inactive-color "#50494580"
+        urgent-color "#fb493480"
+        // TODO: replace with gradients for more visibility?
+    }
+
     insert-hint {
         color "#ebdbb280"
     }
