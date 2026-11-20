@@ -113,6 +113,7 @@ if status is-interactive
     {{- end }}
     zoxide init fish | source
     chezmoi completion fish | source
+    syscall completion fish | source
 
     # Pretty colors in vt
     if [ "$TERM" = "linux" ] && stty 1>/dev/null 2>&1
