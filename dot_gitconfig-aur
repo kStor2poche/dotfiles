@@ -1,0 +1,4 @@
+# vim:ft=gitconfig:
+[user]
+    email = kStor2poche@orange.fr
+    name = kStor2poche

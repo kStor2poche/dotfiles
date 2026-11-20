@@ -1,0 +1,63 @@
+# Delta everywhere :3
+[delta]
+    navigate = true
+    dark = true
+    features = gruvmax-fang
+
+# tweaked from upstream
+[delta "gruvmax-fang"]
+    # General appearance
+    dark = true
+    syntax-theme = gruvbox-dark
+    # File
+    file-style = bold
+    file-added-label = [+]
+    file-copied-label = [==]
+    file-modified-label = [*]
+    file-removed-label = [-]
+    file-renamed-label = [->]
+    file-decoration-style = "#434C5E" ul
+    file-decoration-style = "#84786A" ul
+    # Hunk header
+    hunk-header-decoration-style = ul
+    hunk-header-file-style = blue italic
+    hunk-header-line-number-style = bold italic
+    hunk-header-style = file line-number syntax italic
+    # Line numbers
+    line-numbers = true
+    line-numbers-left-style = "#84786A"
+    line-numbers-right-style = "#84786A"
+    line-numbers-minus-style = brightred
+    line-numbers-plus-style = brightgreen
+    line-numbers-zero-style = "#84786A"
+    line-numbers-left-format = " {nm:>3} │"
+    line-numbers-right-format = " {np:>3} │"
+    # Diff contents
+    inline-hint-style = syntax
+    minus-style = syntax "#730E02"
+    minus-emph-style = reverse brightred
+    minus-non-emph-style = syntax "#730E02"
+    plus-style = syntax "#3A3B0C"
+    plus-emph-style = reverse brightgreen
+    plus-non-emph-style = syntax "#3A3B0C"
+    whitespace-error-style = brightred reverse
+    # Commit hash
+    commit-decoration-style = normal box
+    commit-style = normal bold
+    # Blame
+    blame-code-style = syntax
+    blame-format = "{author:>18} ({commit:>8}) {timestamp:<13} "
+    blame-palette = "#000000" "#1d2021" "#282828" "#3c3836"
+    # Merge conflicts
+    merge-conflict-begin-symbol = ⌃
+    merge-conflict-end-symbol = ⌄
+    merge-conflict-ours-diff-header-style = "#FABD2F" bold
+    merge-conflict-theirs-diff-header-style = "#FABD2F" bold overline
+    merge-conflict-ours-diff-header-decoration-style = ''
+    merge-conflict-theirs-diff-header-decoration-style = ''
+[core]
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+
+# vim:ft=gitconfig:

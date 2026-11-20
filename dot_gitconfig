@@ -1,0 +1,36 @@
+[user]
+    email = laio@localhost
+    name = laio
+
+# Github personnel
+[includeIf "hasconfig:remote.*.url:git@github.com*/**"]
+    path = .gitconfig-github
+
+# Gitlab HackademINT
+[includeIf "hasconfig:remote.*.url:ssh://git@gitlab.hackademint.org:2222/**"]
+    path = .gitconfig-hackademint
+
+# Gitlab AUR
+[includeIf "hasconfig:remote.*.url:ssh://aur@aur.archlinux.org/**"]
+    path = .gitconfig-aur
+
+# Use delta for diffs
+[include]
+    path = .gitconfig-delta
+
+# And nvim for merges
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[merge]
+    tool = nvim
+[mergetool]
+# prompt = false
+
+[alias]
+    poule = pull
+    aa = add --all
+    stasha = stash --all
+[rerere]
+    enabled = true
+[pull]
+    rebase = true

@@ -1,5 +1,4 @@
-{{/* vim:ft=gotmpl
-*/}}
+{{/* vim:set ft=gotmpl: */}}
 
 README.md
 
@@ -19,6 +18,7 @@ README.md
 
 {{- if not .daily }}
 .config/nvchecker
+.gitconfig*
 {{- else }}
 {{/* no leakerino */}}
 .config/nvchecker/keyfile.toml
