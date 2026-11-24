@@ -182,6 +182,7 @@ m.setup = function()
         },
     })
     vim.lsp.enable("lua_ls")
+    {{- if eq .chezmoi.hostname "archdesktop" "archlaptop" }}
     vim.lsp.config("basedpyright", {
         capabilities = capabilities,
         on_attach = on_attach,
@@ -194,6 +195,7 @@ m.setup = function()
         }
     })
     vim.lsp.enable("basedpyright")
+    {{- end }}
 end
 
 return m
